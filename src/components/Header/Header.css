@@ -1,0 +1,14 @@
+.Page-Header {
+    border: 1px solid green;
+    padding: 0 20px;
+}
+
+.Page-Header #app-name {
+    color: rgb(132, 23, 78);
+    /* text-align: left;
+    display: inline-block; */
+}
+
+.Page-Header > .auth-link {
+    /* text-align: right; */
+}

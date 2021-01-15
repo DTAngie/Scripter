@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import './App.css';
 import SignupPage from '../SignupPage/SignupPage';
 import LoginPage from '../LoginPage/LoginPage';
+import HomePage from '../HomePage/HomePage';
 
 
 function App() {
@@ -10,7 +11,7 @@ function App() {
     <div className="App">
       <Switch>
           <Route exact path="/">
-              <h1>Home Page</h1>
+              <HomePage />
           </Route>
           <Route exact path="/login">
              <LoginPage />
