@@ -1,10 +1,10 @@
 import React from 'react';
-import PageHeader from '../../components/Header/Header';
+import GuestHeader from '../../components/GuestHeader/GuestHeader';
 
 export default function HomePage() {
     return (
         <>
-        <PageHeader />
+        <GuestHeader />
         <h1>This is the home page!</h1>
         </>
     )

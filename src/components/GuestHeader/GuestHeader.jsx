@@ -1,8 +1,9 @@
 import React from 'react';
-import {Segment,Header, Grid} from 'semantic-ui-react';
-import './Header.css';
+import { Link } from 'react-router-dom';
+import { Segment,Header, Grid } from 'semantic-ui-react';
+import './GuestHeader.css';
 
-export default function PageHeader() {
+export default function GuestHeader() {
     return (
         <Segment className="Page-Header">
             <Grid>
@@ -10,9 +11,9 @@ export default function PageHeader() {
                     <Header as="h1" id="app-name">Scripter</Header>
                 </Grid.Column>
             <Grid.Column floated="right" width={4}>
-                <div class="auth-link">
+                <Link to="/login">
                     Log In Link to go here
-                </div>
+                </Link>
             </Grid.Column>
             </Grid>
         </Segment>

@@ -11,7 +11,7 @@ export default function PageHeader() {
                 </Grid.Column>
             <Grid.Column floated="right" width={4}>
                 <div class="auth-link">
-                    Log In Link to go here
+                    Log Out Link to go here
                 </div>
             </Grid.Column>
             </Grid>
