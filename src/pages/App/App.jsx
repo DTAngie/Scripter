@@ -14,20 +14,25 @@ function App() {
     setUser(userService.getUser());
   }
 
+  function handleLogout() {
+    userService.logout();
+    setUser(null);
+  }
+
   return (
     <div className="App">
       <Switch>
           <Route exact path="/login">
-             <LoginPage handleSignUpOrLogin={handleSignUpOrLogin}/>
+             <LoginPage user={user} handleSignUpOrLogin={handleSignUpOrLogin}/>
           </Route>
           <Route exact path="/signup" >
-             <SignupPage handleSignUpOrLogin={handleSignUpOrLogin} />
+             <SignupPage user={user} handleSignUpOrLogin={handleSignUpOrLogin} />
           </Route>
           {/* Pages that require login */}
           {userService.getUser() ?
             <>
               <Route exact path="/">
-                  <HomePage user={user}/>
+                  <HomePage user={user} handleLogout={handleLogout}/>
               </Route>
             Routes to go here
             </>

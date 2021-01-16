@@ -1,8 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import {Segment,Header, Grid} from 'semantic-ui-react';
 import './Header.css';
 
-export default function PageHeader() {
+export default function PageHeader({isLoggedIn, handleLogout}) {
     return (
         <Segment className="Page-Header">
             <Grid>
@@ -10,9 +11,11 @@ export default function PageHeader() {
                     <Header as="h1" id="app-name">Scripter</Header>
                 </Grid.Column>
             <Grid.Column floated="right" width={4}>
-                <div class="auth-link">
-                    Log Out Link to go here
-                </div>
+                {isLoggedIn ? 
+                <Link to="" onClick={handleLogout}>Log Out</Link>
+                :
+                <Link to="/login">Log In</Link>
+                }
             </Grid.Column>
             </Grid>
         </Segment>

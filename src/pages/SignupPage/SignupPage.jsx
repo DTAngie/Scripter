@@ -2,8 +2,8 @@ import React, {useState, useRef, useEffect } from 'react';
 import './SignupPage.css';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage'
 import userService from '../../utils/userService';
-import GuestHeader from '../../components/GuestHeader/GuestHeader';
-import { Grid, Header, Form, Button } from 'semantic-ui-react';
+import PageHeader from '../../components/Header/Header';
+import { Grid, Header, Form, Button, Segment } from 'semantic-ui-react';
 import { useHistory } from 'react-router-dom';
 
 export default function SignUpPage(props){
@@ -13,7 +13,7 @@ export default function SignUpPage(props){
     password: '',
     passwordConf: ''
   });
-  const [validForm, setValidForm] = useState(false);
+  const [invalidForm, setInvalidForm] = useState(false);
   const [error, setError] = useState('');
   const history = useHistory();
 
@@ -32,7 +32,6 @@ export default function SignUpPage(props){
       formData.append(val, form[val])
     }
     try {
-      // await userService.signup(formData);
       await userService.signup(form);
       props.handleSignUpOrLogin();
       history.push('/');
@@ -44,51 +43,53 @@ export default function SignUpPage(props){
 
   return (
     <>
-    <GuestHeader />
+    <PageHeader isLoggedIn={props.user ? true : false} />
     <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
       <Grid.Column width={4}>
         <Header as="h2">Sign up</Header>
         <Form autoComplete='off' onSubmit={handleSubmit}>
-          <label htmlFor="username">Username</label>
-          <Form.Input
-            id="username"
-            name="username"
-            placeholder="username"
-            value={form.username}
-            onChange={handleChange}
-            required
-          />
-          <label htmlFor="email">Email</label>
-          <Form.Input
-            id="email"
-            name="email"
-            placeholder="email"
-            value={form.email}
-            onChange={handleChange}
-            type="email"
-            required
-          />
-          <label htmlFor="password">Password</label>
-          <Form.Input
-            id="password"
-            name="password"
-            placeholder="password"
-            value={form.password}
-            onChange={handleChange}
-            type="password"
-            required
-          />
-          <label htmlFor="passwordConf">Enter Password Again</label>
-          <Form.Input
-            id="passwordConf"
-            name="passwordConf"
-            placeholder="password"
-            value={form.passwordConf}
-            onChange={handleChange}
-            type="password"
-            required
-          />
-          <Button type='submit' className='btn' disabled={validForm}>Get Started</Button>
+          <Segment>
+            <label htmlFor="username">Username</label>
+            <Form.Input
+              id="username"
+              name="username"
+              placeholder="username"
+              value={form.username}
+              onChange={handleChange}
+              required
+            />
+            <label htmlFor="email">Email</label>
+            <Form.Input
+              id="email"
+              name="email"
+              placeholder="email"
+              value={form.email}
+              onChange={handleChange}
+              type="email"
+              required
+            />
+            <label htmlFor="password">Password</label>
+            <Form.Input
+              id="password"
+              name="password"
+              placeholder="password"
+              value={form.password}
+              onChange={handleChange}
+              type="password"
+              required
+            />
+            <label htmlFor="passwordConf">Enter Password Again</label>
+            <Form.Input
+              id="passwordConf"
+              name="passwordConf"
+              placeholder="password"
+              value={form.passwordConf}
+              onChange={handleChange}
+              type="password"
+              required
+            />
+            <Button type='submit' className='btn' disabled={invalidForm}>Get Started</Button>
+          </Segment>
         </Form>
       </Grid.Column>
     </Grid>
