@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import './App.css';
+import userService from '../../utils/userService';
+import PageHeader from '../../components/Header/Header';
 import SignupPage from '../SignupPage/SignupPage';
 import LoginPage from '../LoginPage/LoginPage';
 import HomePage from '../HomePage/HomePage';
-import userService from '../../utils/userService';
+import DashboardPage from '../DashboardPage/DashboardPage';
+import ScriptPage from '../ScriptPage/ScriptPage';
+import ScriptFormPage from '../ScriptFormPage/ScriptFormPage';
 
 
 function App() {
@@ -21,20 +25,29 @@ function App() {
 
   return (
     <div className="App">
-      <Switch>
+      <PageHeader user={user ? user.username : false} handleLogout={handleLogout} />      <Switch>
           <Route exact path="/login">
              <LoginPage user={user} handleSignUpOrLogin={handleSignUpOrLogin}/>
           </Route>
           <Route exact path="/signup" >
              <SignupPage user={user} handleSignUpOrLogin={handleSignUpOrLogin} />
           </Route>
+          <Route exact path="/">
+              <HomePage user={user} handleLogout={handleLogout}/>
+          </Route>
           {/* Pages that require login */}
           {userService.getUser() ?
             <>
-              <Route exact path="/">
-                  <HomePage user={user} handleLogout={handleLogout}/>
+              <Route path="/dashboard">
+                <DashboardPage handleLogout={handleLogout}/>
               </Route>
-            Routes to go here
+              <Route path='/script/new'>
+                <ScriptFormPage formType={'create'}/>
+                {/* //the edit form should have 'edit' in the props */}
+              </Route>
+              <Route path="/script/:id">
+                <ScriptPage />
+              </Route>
             </>
             :
             <Redirect to='/login' />
