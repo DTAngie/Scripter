@@ -1,13 +1,14 @@
 const mongoose = require('mongoose');
 
 mongoose.connect(
-  'mongodb://localhost:27017/scripts',
+  process.env.DATABASE_URL,
   { useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true,
     useFindAndModify: false
   }
-);
+  );
+  
 
 const db = mongoose.connection;
 

@@ -4,8 +4,9 @@ const BASE_URL = '/api/users/';
 
 function signup(user) {
   return fetch(BASE_URL + 'signup', {
+    headers: new Headers({'Content-Type': 'application/json'}),
     method: 'POST',
-    body: user
+    body: JSON.stringify(user)
   })
   .then(res => {
     if (res.ok) return res.json();

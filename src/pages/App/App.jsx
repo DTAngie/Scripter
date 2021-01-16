@@ -17,22 +17,23 @@ function App() {
   return (
     <div className="App">
       <Switch>
-          <Route exact path="/">
-              <HomePage />
+          <Route exact path="/login">
+             <LoginPage handleSignUpOrLogin={handleSignUpOrLogin}/>
           </Route>
-          <Route exact path="/login" handleSignUpOrLogin={handleSignUpOrLogin}>
-             <LoginPage />
-          </Route>
-          <Route exact path="/signup" handleSignUpOrLogin={handleSignUpOrLogin}>
-             <SignupPage />
+          <Route exact path="/signup" >
+             <SignupPage handleSignUpOrLogin={handleSignUpOrLogin} />
           </Route>
           {/* Pages that require login */}
-          userService.getUser() ?
-          <>
-          Routes to go here
-          </>
-          :
-          <Redirect to='/login' />
+          {userService.getUser() ?
+            <>
+              <Route exact path="/">
+                  <HomePage user={user}/>
+              </Route>
+            Routes to go here
+            </>
+            :
+            <Redirect to='/login' />
+          }
       </Switch>
     </div>
   );

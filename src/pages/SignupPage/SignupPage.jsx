@@ -26,8 +26,13 @@ export default function SignUpPage(props){
 
   async function handleSubmit(e) {
     e.preventDefault();
+    const formData = new FormData();
 
+    for (let val in form) {
+      formData.append(val, form[val])
+    }
     try {
+      // await userService.signup(formData);
       await userService.signup(form);
       props.handleSignUpOrLogin();
       history.push('/');
@@ -43,8 +48,8 @@ export default function SignUpPage(props){
     <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
       <Grid.Column width={4}>
         <Header as="h2">Sign up</Header>
-        <Form autocomplete='off' onSubmit={handleSubmit}>
-          <label for="username">Username</label>
+        <Form autoComplete='off' onSubmit={handleSubmit}>
+          <label htmlFor="username">Username</label>
           <Form.Input
             id="username"
             name="username"
@@ -53,7 +58,7 @@ export default function SignUpPage(props){
             onChange={handleChange}
             required
           />
-          <label for="email">Email</label>
+          <label htmlFor="email">Email</label>
           <Form.Input
             id="email"
             name="email"
@@ -63,7 +68,7 @@ export default function SignUpPage(props){
             type="email"
             required
           />
-          <label for="password">Password</label>
+          <label htmlFor="password">Password</label>
           <Form.Input
             id="password"
             name="password"
@@ -73,7 +78,7 @@ export default function SignUpPage(props){
             type="password"
             required
           />
-          <label for="passwordConf">Enter Password Again</label>
+          <label htmlFor="passwordConf">Enter Password Again</label>
           <Form.Input
             id="passwordConf"
             name="passwordConf"
