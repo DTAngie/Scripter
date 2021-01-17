@@ -33,7 +33,7 @@ export default function LoginPage(props){
       setError(err.message);
     }
   }
-  
+  //TODO: update labels to form attribute instead of html element
   return (
     <>
       <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
@@ -50,7 +50,6 @@ export default function LoginPage(props){
                 onChange={handleChange}
                 required
               />
-              <label htmlFor="email">Email</label>
               <label htmlFor="password">Password</label>
               <Form.Input
                 id="password"

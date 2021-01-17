@@ -40,7 +40,7 @@ export default function SignUpPage(props){
       setError(err.message);
     }
   }
-
+//TODO: update labels to form attribute instead of html element
   return (
     <>
       <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
