@@ -30,9 +30,30 @@ const scriptSchema = new mongoose.Schema({
             "Western"
         ]
     },
-    mediaType: String,
-    stage: String,
-    budget: Number,
+    mediaType: {
+        type: String,
+        enum: [
+            'Feature',
+            'New Media',
+            'Short',
+            'Television',
+            'Web'
+        ]
+    },
+    stage: {
+        type: String,
+        enum: [
+            'Draft',
+            'Pitch',
+            'Optioned',
+            'Produced',
+        ]
+    },
+    budget: {
+        type: Number,
+        min: 1,
+        max: 7
+    },
     author: {
         type: Schema.Types.ObjectId,
         ref: 'User',

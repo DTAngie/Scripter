@@ -1,10 +1,19 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Button, Form, Segment } from 'semantic-ui-react';
+import { Button, Form, Segment, Select } from 'semantic-ui-react';
 
 export default function  NewScriptForm(){
-    const [form, setForm] = useState({});
+    const [form, setForm] = useState({
+        title: '',
+        logline: '',
+        synopsis: '',
+        genre: '',
+        mediaType: '',
+        stage: '',
+        budget: '',
+    });
     const history = useHistory();
+  
     const genres = [
         { key: '0', text: 'Action', value: 'Action' },
         { key: '1', text: 'Adventure', value: 'Adventure' },
@@ -29,16 +38,45 @@ export default function  NewScriptForm(){
         { key: '20', text: 'Western', value: 'Western' }
     ];
 
-    function handleChange(e){
+    const mediaTypes = [
+        { key: '0', text: 'Feature', value: 'Feature' },
+        { key: '1', text: 'New Media', value: 'New Media' },
+        { key: '2', text: 'Short', value: 'Short'},
+        { key: '3', text: 'Television', value: 'Television' },
+        { key: '4', text: 'Web', value: 'Web' },
+    ]
+
+    const stages = [
+        { key: '0', text: 'Draft', value: 'Draft' },
+        { key: '1', text: 'Pitch', value: 'Pitch' },
+        { key: '2', text: 'Optioned', value: 'Optioned' },
+        { key: '3', text: 'Produced', value: 'Produced' },
+    ]
+
+    const budgets = [
+        { key: '0', text: 'Under $100K', value: '1' },
+        { key: '1', text: '$100K - $250K', value: '2' },
+        { key: '2', text: '$250K - $500K', value: '3' },
+        { key: '3', text: '$500K - $1M', value: '4' },
+        { key: '4', text: '$1M - $5M', value: '5' },
+        { key: '5', text: '$5M - $10M', value: '6' },
+        { key: '6', text: 'Above $10M', value: '7' }
+    ]
+
+
+    function handleChange(e, {name, value}){
         setForm({
             ...form,
-            [e.target.name]: e.target.value
+            [name]: value
         });
     }
+
+
 
     function handleSubmit(e){
         e.preventDefault();
     }
+
 
     return (
         <Form autoComplete='off' onSubmit={handleSubmit}>
@@ -68,24 +106,40 @@ export default function  NewScriptForm(){
                     value={form.synopsis}
                     label="Synopsis"
                 />
-
-
-                       <Form.Select
-                            options={genres}
-                            label="Genre"                
-                        />
-
-            
-
-            
+                <Form.Select
+                    name="genre"
+                    id="genre"
+                    options={genres}
+                    onChange={handleChange}
+                    value={form.genre}
+                    label="Genre"                
+                />
+                <Form.Select
+                    name="mediaType"
+                    id="mediaType"
+                    options={mediaTypes}
+                    onChange={handleChange}
+                    value={form.mediaType}
+                    label="Medium"
+                />
+                <Form.Select
+                    name="stage"
+                    id="stage"
+                    options={stages}
+                    onChange={handleChange}
+                    value={form.stage}
+                    label="Script Stage"
+                />
+                <Form.Select
+                    name="budget"
+                    id="budget"
+                    options={budgets}
+                    onChange={handleChange}
+                    value={form.budget}
+                    label="Estimated Budget"
+                />    
             <Button>Add Script</Button>
             </Segment>
         </Form>
     );
 }
-
-// genre: String,
-// mediaType: String,
-// stage: String,
-// budget: Number,
-// author: {
