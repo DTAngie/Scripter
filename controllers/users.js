@@ -23,7 +23,6 @@ async function signup(req, res) {
 }
 
 async function login(req, res) {
-  console.log(req.body)
   try {
     const user = await User.findOne({username: req.body.username});
     console.log(user, ' this user', !user, !!user)

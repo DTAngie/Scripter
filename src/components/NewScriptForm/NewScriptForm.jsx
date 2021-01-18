@@ -1,8 +1,9 @@
+import { PromiseProvider } from 'mongoose';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button, Form, Segment, Select } from 'semantic-ui-react';
 
-export default function  NewScriptForm(){
+export default function  NewScriptForm(props){
     const [form, setForm] = useState({
         title: '',
         logline: '',
@@ -75,6 +76,7 @@ export default function  NewScriptForm(){
 
     function handleSubmit(e){
         e.preventDefault();
+        props.handleAddScript(form);
     }
 
 
@@ -94,7 +96,7 @@ export default function  NewScriptForm(){
                     name="logline"
                     id="logline"
                     onChange={handleChange}
-                    placeholder="title"
+                    placeholder="logline"
                     value={form.logline}
                     label="Logline"
                 />

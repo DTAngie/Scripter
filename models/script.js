@@ -1,38 +1,41 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const scriptSchema = new mongoose.Schema({
+const scriptSchema = new Schema({
     title: String,
     synopsis: String,
     logline: String,
     genre: {
         type: String,
         enum: [
-            "Action",
-            "Adventure",
-            "Animation",
-            "Biography",
-            "Comedy",
-            "Crime",
-            "Drama",
-            "Family",
-            "Fantasy",
-            "Film Noir",
-            "History",
-            "Horror",
-            "Musical",
-            "Mystery",
-            "Romance",
-            "Sci-Fi",	
-            "Sport",
-            "Superhero",
-            "Thriller",
-            "War",
-            "Western"
+            '',
+            'Action',
+            'Adventure',
+            'Animation',
+            'Biography',
+            'Comedy',
+            'Crime',
+            'Drama',
+            'Family',
+            'Fantasy',
+            'Film Noir',
+            'History',
+            'Horror',
+            'Musical',
+            'Mystery',
+            'Romance',
+            'Sci-Fi',	
+            'Sport',
+            'Superhero',
+            'Thriller',
+            'War',
+            'Western'
         ]
     },
     mediaType: {
         type: String,
         enum: [
+            '',
             'Feature',
             'New Media',
             'Short',
@@ -43,6 +46,7 @@ const scriptSchema = new mongoose.Schema({
     stage: {
         type: String,
         enum: [
+            '',
             'Draft',
             'Pitch',
             'Optioned',

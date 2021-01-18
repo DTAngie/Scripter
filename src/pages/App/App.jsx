@@ -39,6 +39,7 @@ function App() {
           {userService.getUser() ?
             <>
               <Route path="/dashboard">
+                {/* TODO: Maybe rename dashboard page to profile page? for reusability? */}
                 <DashboardPage handleLogout={handleLogout}/>
               </Route>
               <Route path='/script/new'>
