@@ -6,8 +6,8 @@ import PageHeader from '../../components/Header/Header';
 import SignupPage from '../SignupPage/SignupPage';
 import LoginPage from '../LoginPage/LoginPage';
 import HomePage from '../HomePage/HomePage';
-import DashboardPage from '../DashboardPage/DashboardPage';
-import ScriptPage from '../ScriptPage/ScriptPage';
+import ProfilePage from '../ProfilePage/ProfilePage';
+import ScriptDetailPage from '../ScriptDetailPage/ScriptDetailPage';
 import ScriptFormPage from '../ScriptFormPage/ScriptFormPage';
 
 
@@ -40,14 +40,14 @@ function App() {
             <>
               <Route path="/dashboard">
                 {/* TODO: Maybe rename dashboard page to profile page? for reusability? */}
-                <DashboardPage handleLogout={handleLogout}/>
+                <ProfilePage user={user} isProfile={true} handleLogout={handleLogout}/>
               </Route>
               <Route path='/script/new'>
                 <ScriptFormPage formType={'create'}/>
                 {/* //the edit form should have 'edit' in the props */}
               </Route>
               <Route path="/script/:id">
-                <ScriptPage />
+                <ScriptDetailPage />
               </Route>
             </>
             :

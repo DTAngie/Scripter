@@ -1,7 +1,8 @@
 const Script = require('../models/Script');
 
 module.exports = {
-    create
+    create,
+    show
 }
 
 async function create(req, res) {
@@ -23,4 +24,9 @@ async function create(req, res) {
     //     res.status(201).json({post: populatedUserPost})
     // })
 
+}
+
+async function show(req, res) {
+    const scripts = await Script.find({author: req.user});
+    res.status(200).json({scripts});
 }

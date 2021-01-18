@@ -12,3 +12,15 @@ export function create(script) {
         }
     }).then(res => res.json());
 }
+
+export function getOwnScripts() {
+    return fetch(BASE_URL, {
+      headers: {
+        'Authorization': 'Bearer ' + tokenService.getToken(),
+      }  
+    }).then( res => res.json());
+}
+
+// export function getUserScripts(id){
+//This can be used to get other user's scripts
+// }
