@@ -5,7 +5,7 @@ import LeftNavigation from '../../components/LeftNavigation/LeftNavigation';
 import ScriptDetail from '../../components/ScriptDetail/ScriptDetail';
 import * as scriptAPI from '../../utils/scriptService';
 
-export default function ScriptPage(){
+export default function ScriptDetailPage(){
     const [script, setScript] = useState({});
     const [displayBudget, setDisplayBudget] = useState('');
     
@@ -31,6 +31,10 @@ export default function ScriptPage(){
         }
     }
     
+    function handleDeleteScript(id) {
+        console.log(id);
+    }
+
     
     function getBudget(){
         setDisplayBudget(budgets[script.budget]);
@@ -48,10 +52,10 @@ export default function ScriptPage(){
         <>
             <Grid>
                 <Grid.Column width={4}>
-                    <LeftNavigation />
+                    <LeftNavigation ownerIndex={script.author}/>
                 </Grid.Column>
                 <Grid.Column width={8}>
-                <ScriptDetail script={script} displayBudget={displayBudget}/>
+                <ScriptDetail script={script} displayBudget={displayBudget} handleDeleteScript={handleDeleteScript}/>
                 </Grid.Column>
                 <Grid.Column width={4}>
                     Side Content

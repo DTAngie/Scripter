@@ -37,3 +37,13 @@
     transform: rotate(360deg);
   }
 }
+
+.App .button.ui {
+  background-color: rgb(132, 23, 78);
+  color:#fff;
+}
+
+.App .button.ui:hover {
+  background-color: rgb(121, 20, 71);
+  color: #fff;
+}

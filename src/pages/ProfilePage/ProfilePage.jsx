@@ -32,7 +32,6 @@ export default function ProfilePage({user, isProfile, handleLogout}){
                 </Grid.Column>
                 <Grid.Column width={8}>
                 <ScriptList scripts={scripts}/>
-                    Main Content
                 </Grid.Column>
                 <Grid.Column width={4}>
                     Side Content
