@@ -2,6 +2,7 @@ const Script = require('../models/Script');
 
 module.exports = {
     create,
+    index,
     show
 }
 
@@ -26,7 +27,20 @@ async function create(req, res) {
 
 }
 
+async function index(req, res) {
+    try {
+        const scripts = await Script.find({author: req.user});
+        res.status(200).json({scripts});
+    } catch (err) {
+        console.log(err);
+    }
+}
+
 async function show(req, res) {
-    const scripts = await Script.find({author: req.user});
-    res.status(200).json({scripts});
+    try {
+        const script = await Script.findOne({_id: req.params.id});
+        res.status(200).json({script});
+    } catch (err) {
+        console.log(err);
+    }
 }
