@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useLocation, useHistory, Redirect } from 'react-router-dom';
 import { Grid } from 'semantic-ui-react';
 import LeftNavigation from '../../components/LeftNavigation/LeftNavigation';
 import ScriptDetail from '../../components/ScriptDetail/ScriptDetail';
@@ -12,20 +12,22 @@ export default function ScriptDetailPage(){
     const isOwner = true;
     
     const budgets = {
-        '1': 'Under $100K',
-        '2': '$100K - $250K',
-        '3': '$250K - $500K',
-        '4': '$500K - $1M',
-        '5': '$1M - $5M',
-        '6': '$5M - $10M',
-        '7': 'Above $10M'
+        '0': 'Under $100K',
+        '1': '$100K - $250K',
+        '2': '$250K - $500K',
+        '3': '$500K - $1M',
+        '4': '$1M - $5M',
+        '5': '$5M - $10M',
+        '6': 'Above $10M'
     }
        
     const location = useLocation();
     const history = useHistory();
 
     async function getScript(){
-        const scriptID = location.state.id;
+        const pathName = location.pathname;
+        const basePath = '/script/';
+        const scriptID = pathName.substring(pathName.indexOf(basePath)+basePath.length);
         try {
             const data = await scriptAPI.getOne(scriptID);
             setScript(data.script);
@@ -42,7 +44,6 @@ export default function ScriptDetailPage(){
             console.log(err);
         }
     }
-
     
     function getBudget(){
         setDisplayBudget(budgets[script.budget]);
@@ -63,7 +64,12 @@ export default function ScriptDetailPage(){
                     <LeftNavigation ownerIndex={script.author}/>
                 </Grid.Column>
                 <Grid.Column width={8}>
-                <ScriptDetail isOwner={isOwner} script={script} displayBudget={displayBudget} handleDeleteScript={handleDeleteScript}/>
+                <ScriptDetail
+                    isOwner={isOwner}
+                    script={script}
+                    displayBudget={displayBudget}
+                    handleDeleteScript={handleDeleteScript}
+                />
                 </Grid.Column>
                 <Grid.Column width={4}>
                     Side Content

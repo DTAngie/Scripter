@@ -1,9 +1,9 @@
 import { PromiseProvider } from 'mongoose';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button, Form, Segment, Select } from 'semantic-ui-react';
 
-export default function  NewScriptForm(props){
+export default function  NewScriptForm({script, handleAddScript}){
     const [form, setForm] = useState({
         title: '',
         logline: '',
@@ -55,13 +55,13 @@ export default function  NewScriptForm(props){
     ]
 
     const budgets = [
-        { key: '0', text: 'Under $100K', value: '1' },
-        { key: '1', text: '$100K - $250K', value: '2' },
-        { key: '2', text: '$250K - $500K', value: '3' },
-        { key: '3', text: '$500K - $1M', value: '4' },
-        { key: '4', text: '$1M - $5M', value: '5' },
-        { key: '5', text: '$5M - $10M', value: '6' },
-        { key: '6', text: 'Above $10M', value: '7' }
+        { key: '0', text: 'Under $100K', value: '0' },
+        { key: '1', text: '$100K - $250K', value: '1' },
+        { key: '2', text: '$250K - $500K', value: '2' },
+        { key: '3', text: '$500K - $1M', value: '3' },
+        { key: '4', text: '$1M - $5M', value: '4' },
+        { key: '5', text: '$5M - $10M', value: '5' },
+        { key: '6', text: 'Above $10M', value: '6' }
     ]
 
 
@@ -76,8 +76,27 @@ export default function  NewScriptForm(props){
 
     function handleSubmit(e){
         e.preventDefault();
-        props.handleAddScript(form);
+        handleAddScript(form);
     }
+
+
+    function preFillForm(){
+        if(script) {
+            setForm({
+                title: script.title,
+                logline: script.logline ? script.logline : '',
+                synopsis: script.synopsis ? script.synopsis : '',
+                genre: script.genre ? script.genre : '',
+                mediaType: script.mediaType ? script.mediaType : '',
+                stage: script.stage ? script.stage : '',
+                budget: script.budget ? script.budget.toString() : '',
+            });
+        }
+    }
+
+    useEffect(()=> {
+        preFillForm();
+    }, [script])
 
 //TODO: this redirect doesn't take you to the correct detail page.
     return (

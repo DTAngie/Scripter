@@ -1,8 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Segment, Header, Divider, Button, Modal } from 'semantic-ui-react';
 
 
-export default function ScriptDetail({isOwner, script, displayBudget, handleDeleteScript}) {
+export default function ScriptDetail({isOwner, script, displayBudget, handleDeleteScript}) {  
     return (       
         <Segment>
             <Header>
@@ -22,7 +23,7 @@ export default function ScriptDetail({isOwner, script, displayBudget, handleDele
             </Segment.Group>
             { isOwner ?
                 <>
-                    <Button floated='left' content='Edit' labelPosition='left' icon='pencil' />
+                    <Button as={Link} to={`/script/${script._id}/edit`} floated='left' content='Edit' labelPosition='left' icon='pencil' />
                     <Modal 
                         trigger= {
                             <Button color='red' floated='right' content='Delete' labelPosition='left' icon='delete' />

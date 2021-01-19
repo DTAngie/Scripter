@@ -9,7 +9,7 @@ export default function ScriptList({scripts}){
             <Card.Group className="ScriptList">
             {scripts.map((s ) => {
                 return (
-                    <Link key={s._id} to={{pathname: `/script/${s._id}`, state:{id: s._id}}}>
+                    <Link key={s._id} to={`/script/${s._id}`}>
                         <Card >
                             <Card.Content>
                             <Card.Header>{s.title}</Card.Header>

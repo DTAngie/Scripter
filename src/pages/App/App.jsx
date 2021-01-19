@@ -25,7 +25,8 @@ function App() {
 
   return (
     <div className="App">
-      <PageHeader user={user ? user.username : false} handleLogout={handleLogout} />      <Switch>
+      <PageHeader user={user ? user.username : false} handleLogout={handleLogout} />      
+      <Switch>
           <Route exact path="/login">
              <LoginPage user={user} handleSignUpOrLogin={handleSignUpOrLogin}/>
           </Route>
@@ -46,8 +47,11 @@ function App() {
                 <ScriptFormPage formType={'create'}/>
                 {/* //the edit form should have 'edit' in the props */}
               </Route>
-              <Route path="/script/:id">
+              <Route exact path="/script/:id">
                 <ScriptDetailPage />
+              </Route>
+              <Route path='/script/:id/edit'>
+                <ScriptFormPage formType={'edit'} />
               </Route>
             </>
             :

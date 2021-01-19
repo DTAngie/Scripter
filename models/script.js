@@ -55,8 +55,8 @@ const scriptSchema = new Schema({
     },
     budget: {
         type: Number,
-        min: 1,
-        max: 7
+        min: 0,
+        max: 6
     },
     author: {
         type: Schema.Types.ObjectId,

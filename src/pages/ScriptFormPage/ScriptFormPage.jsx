@@ -1,12 +1,34 @@
-import React from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import { Grid } from 'semantic-ui-react';
 import LeftNavigation from '../../components/LeftNavigation/LeftNavigation';
 import NewScriptForm from '../../components/NewScriptForm/NewScriptForm';
 import * as ScriptAPI from '../../utils/scriptService.js';
 
 export default function ScriptFormPage({formType}){
+    const [script, setScript] = useState({})
     const history = useHistory();
+    const location = useLocation();
+
+    async function getScript(){
+        const pathName = location.pathname;
+        const editPath = '/edit';
+        if (pathName.includes(editPath)) {
+            //If it's an edit page, get the script info
+            try {
+                const basePath = '/script/';
+                const scriptID = pathName.substring(pathName.indexOf(basePath)+basePath.length, pathName.indexOf(editPath));
+                console.log(scriptID);
+                //TODO change this to a different function that checks owner
+                // BEFORE sending
+                const data = await ScriptAPI.getOne(scriptID);
+                setScript({...data.script});
+            } catch (err){
+
+            }
+        }
+        
+    }
 
     async function handleAddScript(data) {
         try {
@@ -17,6 +39,10 @@ export default function ScriptFormPage({formType}){
         }
     }
 
+    useEffect(()=> {
+        getScript();
+    }, []);
+
     return (
         <>
             <Grid>
@@ -24,11 +50,11 @@ export default function ScriptFormPage({formType}){
                     <LeftNavigation />
                 </Grid.Column>
                 <Grid.Column width={8}>
-                    { formType === "create" ?
-                    <NewScriptForm handleAddScript={handleAddScript}/>
-                    : 
-                    <div>update form{formType}</div>
-                    }
+                    {/* { formType === "create" ? */}
+                    <NewScriptForm script={script} handleAddScript={handleAddScript}/>
+                    {/* :  */}
+                
+                    {/* } */}
                 </Grid.Column>
                 <Grid.Column width={4}>
                     Side Content
