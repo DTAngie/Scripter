@@ -79,7 +79,7 @@ export default function  NewScriptForm(props){
         props.handleAddScript(form);
     }
 
-
+//TODO: this redirect doesn't take you to the correct detail page.
     return (
         <Form autoComplete='off' onSubmit={handleSubmit}>
             <Segment>

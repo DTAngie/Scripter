@@ -7,7 +7,18 @@ import * as scriptAPI from '../../utils/scriptService';
 
 export default function ScriptPage(){
     const [script, setScript] = useState({});
-
+    const [displayBudget, setDisplayBudget] = useState('');
+    
+    const budgets = {
+        '1': 'Under $100K',
+        '2': '$100K - $250K',
+        '3': '$250K - $500K',
+        '4': '$500K - $1M',
+        '5': '$1M - $5M',
+        '6': '$5M - $10M',
+        '7': 'Above $10M'
+    }
+       
     const location = useLocation();
 
     async function getScript(){
@@ -19,10 +30,19 @@ export default function ScriptPage(){
             console.log(err);
         }
     }
+    
+    
+    function getBudget(){
+        setDisplayBudget(budgets[script.budget]);
+    }
 
     useEffect(() => {
         getScript()
     }, []);
+
+    useEffect(()=> {
+        getBudget();
+    }, [script]);
 
     return (
         <>
@@ -31,7 +51,7 @@ export default function ScriptPage(){
                     <LeftNavigation />
                 </Grid.Column>
                 <Grid.Column width={8}>
-                <ScriptDetail script={script} />
+                <ScriptDetail script={script} displayBudget={displayBudget}/>
                 </Grid.Column>
                 <Grid.Column width={4}>
                     Side Content
