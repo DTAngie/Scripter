@@ -1,3 +1,4 @@
+import { token } from 'morgan';
 import tokenService from './tokenService';
 
 const BASE_URL = '/api/scripts';
@@ -33,4 +34,13 @@ export function getOne(id){
             'Authorization': 'Bearer ' + tokenService.getToken()
         }
     }).then(res => res.json());
+}
+
+export function deleteOne(id) {
+    return fetch(`${BASE_URL}/${id}`, {
+        method: 'DELETE',
+        headers : {
+            'Authorization' : 'Bearer ' + tokenService.getToken()
+        }
+    })
 }

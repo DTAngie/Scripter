@@ -1,9 +1,11 @@
+const { Redirect } = require('react-router-dom');
 const Script = require('../models/Script');
 
 module.exports = {
     create,
     index,
-    show
+    show, 
+    delete: deleteOne
 }
 
 async function create(req, res) {
@@ -43,4 +45,21 @@ async function show(req, res) {
     } catch (err) {
         console.log(err);
     }
+}
+
+async function deleteOne(req, res){
+    try {
+        const script = await Script.findOne({_id: req.params.id});
+        if (script.author.toString() !== req.user._id.toString()) {
+            res.status(404).json('Bad Request');
+        } else {
+            script.deleteOne();
+            res.status(200).json('Successful Deletion');
+        }
+    } catch (err) {
+        console.log(err);
+    }
+    
+    // if req.user !==
+    console.log(req.params);
 }
