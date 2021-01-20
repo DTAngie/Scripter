@@ -13,6 +13,7 @@ router.get('/', scriptsCtrl.index);
 // router.get('/all/?author=id', script.allScripts);
 // //Get one Script
 router.get('/:id', scriptsCtrl.show);
+router.put('/:id', scriptsCtrl.update);
 router.delete('/:id', scriptsCtrl.delete);
 
 module.exports = router;

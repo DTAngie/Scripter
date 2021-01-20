@@ -1,4 +1,3 @@
-import { token } from 'morgan';
 import tokenService from './tokenService';
 
 const BASE_URL = '/api/scripts';
@@ -32,6 +31,17 @@ export function getOne(id){
     return fetch(`${BASE_URL}/${id}`, {
         headers: {
             'Authorization': 'Bearer ' + tokenService.getToken()
+        }
+    }).then(res => res.json());
+}
+
+export function update(script, id) {
+    return fetch(`${BASE_URL}/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify(script),
+        headers: {
+            'Authorization' : 'Bearer ' + tokenService.getToken(),
+            'Content-Type': 'application/json'
         }
     }).then(res => res.json());
 }

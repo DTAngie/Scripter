@@ -76,7 +76,8 @@ export default function  NewScriptForm({script, handleAddScript}){
 
     function handleSubmit(e){
         e.preventDefault();
-        handleAddScript(form);
+        const scriptID = script._id ? script._id : null;
+        handleAddScript(form, scriptID);
     }
 
 

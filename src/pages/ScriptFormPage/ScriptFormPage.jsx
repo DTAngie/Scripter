@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { Grid } from 'semantic-ui-react';
 import LeftNavigation from '../../components/LeftNavigation/LeftNavigation';
-import NewScriptForm from '../../components/NewScriptForm/NewScriptForm';
+import ScriptForm from '../../components/ScriptForm/ScriptForm';
 import * as ScriptAPI from '../../utils/scriptService.js';
 
 export default function ScriptFormPage({formType}){
@@ -18,7 +18,6 @@ export default function ScriptFormPage({formType}){
             try {
                 const basePath = '/script/';
                 const scriptID = pathName.substring(pathName.indexOf(basePath)+basePath.length, pathName.indexOf(editPath));
-                console.log(scriptID);
                 //TODO change this to a different function that checks owner
                 // BEFORE sending
                 const data = await ScriptAPI.getOne(scriptID);
@@ -30,12 +29,20 @@ export default function ScriptFormPage({formType}){
         
     }
 
-    async function handleAddScript(data) {
-        try {
-            const newScript = await ScriptAPI.create(data);
-            history.push(`/script/${newScript.script._id}`);
-        } catch (err) {
-            console.log(err);
+    async function handleAddScript(data, id) {
+        if (id) {
+            const editedScript = await ScriptAPI.update(data, id);
+            history.push(`/script/${editedScript.scriptID}`)
+        } else  {
+            try {
+                const newScript = await ScriptAPI.create(data);
+                //TODO:: Does response have to be whole object or just id?
+                //If API is being called again, maybe streamline this one
+                //Same for the edit function above
+                history.push(`/script/${newScript.scriptID}`);
+            } catch (err) {
+                console.log(err);
+            }
         }
     }
 
@@ -50,11 +57,7 @@ export default function ScriptFormPage({formType}){
                     <LeftNavigation />
                 </Grid.Column>
                 <Grid.Column width={8}>
-                    {/* { formType === "create" ? */}
-                    <NewScriptForm script={script} handleAddScript={handleAddScript}/>
-                    {/* :  */}
-                
-                    {/* } */}
+                    <ScriptForm script={script} handleAddScript={handleAddScript}/>
                 </Grid.Column>
                 <Grid.Column width={4}>
                     Side Content

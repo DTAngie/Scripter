@@ -4,14 +4,15 @@ const Script = require('../models/Script');
 module.exports = {
     create,
     index,
-    show, 
+    show,
+    update,
     delete: deleteOne
 }
 
 async function create(req, res) {
     try {
         const script = await Script.create({...req.body, author: req.user});
-        res.status(201).json({script: script});
+        res.status(201).json({scriptID: script._id});
     } catch (err){
         console.log(err);
     }
@@ -47,6 +48,16 @@ async function show(req, res) {
     }
 }
 
+async function update(req, res) {
+    try {
+        await Script.updateOne({_id: req.params.id}, {...req.body});
+        res.status(200).json({scriptID: req.params.id});
+
+    } catch (err) {
+        console.log(err);
+    }
+}
+
 async function deleteOne(req, res){
     try {
         const script = await Script.findOne({_id: req.params.id});
@@ -59,7 +70,4 @@ async function deleteOne(req, res){
     } catch (err) {
         console.log(err);
     }
-    
-    // if req.user !==
-    console.log(req.params);
 }

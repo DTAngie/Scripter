@@ -38,22 +38,26 @@ function App() {
           </Route>
           {/* Pages that require login */}
           {userService.getUser() ?
-            <>
+            
+            <Switch>
               <Route path="/dashboard">
-                {/* TODO: Maybe rename dashboard page to profile page? for reusability? */}
+              {/* TODO: Maybe rename dashboard page to profile page? for reusability? */}
                 <ProfilePage user={user} isProfile={true} handleLogout={handleLogout}/>
               </Route>
-              <Route path='/script/new'>
+              <Route exact path='/script/new'>
                 <ScriptFormPage formType={'create'}/>
                 {/* //the edit form should have 'edit' in the props */}
+                {/* check to make sure that if formtype prop is actually needed */}
               </Route>
               <Route exact path="/script/:id">
                 <ScriptDetailPage />
               </Route>
-              <Route path='/script/:id/edit'>
+              <Route exact path='/script/:id/edit'>
                 <ScriptFormPage formType={'edit'} />
               </Route>
-            </>
+
+            </Switch>
+
             :
             <Redirect to='/login' />
           }
