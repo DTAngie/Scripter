@@ -82,17 +82,15 @@ export default function  NewScriptForm({script, handleAddScript}){
 
 
     function preFillForm(){
-        if(script) {
-            setForm({
-                title: script.title,
-                logline: script.logline ? script.logline : '',
-                synopsis: script.synopsis ? script.synopsis : '',
-                genre: script.genre ? script.genre : '',
-                mediaType: script.mediaType ? script.mediaType : '',
-                stage: script.stage ? script.stage : '',
-                budget: script.budget ? script.budget.toString() : '',
-            });
-        }
+        setForm({
+            title: script.title ? script.title : '',
+            logline: script.logline ? script.logline : '',
+            synopsis: script.synopsis ? script.synopsis : '',
+            genre: script.genre ? script.genre : '',
+            mediaType: script.mediaType ? script.mediaType : '',
+            stage: script.stage ? script.stage : '',
+            budget: script.budget ? script.budget.toString() : '',
+        });
     }
 
     useEffect(()=> {
@@ -159,8 +157,8 @@ export default function  NewScriptForm({script, handleAddScript}){
                     onChange={handleChange}
                     value={form.budget}
                     label="Estimated Budget"
-                />    
-            <Button>Add Script</Button>
+                />  
+            <Button>{ Object.keys(script).length > 0 ? 'Edit Script' : 'Add Script' }</Button>
             </Segment>
         </Form>
     );

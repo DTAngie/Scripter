@@ -4,7 +4,7 @@ const scriptsCtrl = require('../../controllers/scripts');
 
 router.post('/', scriptsCtrl.create);
 //Get All Scripts
-// router.get('/all', script.index)
+router.get('/all', scriptsCtrl.allScripts);
 //Get All Scripts from self
 router.get('/', scriptsCtrl.index);
 // //Get all scripts of other user

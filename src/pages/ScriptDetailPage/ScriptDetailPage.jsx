@@ -26,7 +26,7 @@ export default function ScriptDetailPage(){
 
     async function getScript(){
         const pathName = location.pathname;
-        const basePath = '/script/';
+        const basePath = '/scripts/';
         const scriptID = pathName.substring(pathName.indexOf(basePath)+basePath.length);
         try {
             const data = await scriptAPI.getOne(scriptID);

@@ -4,6 +4,7 @@ const Script = require('../models/Script');
 module.exports = {
     create,
     index,
+    allScripts,
     show,
     update,
     delete: deleteOne
@@ -35,6 +36,15 @@ async function index(req, res) {
         const scripts = await Script.find({author: req.user});
         res.status(200).json({scripts});
     } catch (err) {
+        console.log(err);
+    }
+}
+
+async function allScripts(req, res) {
+    try {
+        const scripts = await Script.find(req.query).limit(15).populate('author').exec();
+        res.status(200).json({scripts});
+    } catch(err) {
         console.log(err);
     }
 }

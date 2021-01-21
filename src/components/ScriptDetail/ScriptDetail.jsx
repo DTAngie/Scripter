@@ -23,7 +23,7 @@ export default function ScriptDetail({isOwner, script, displayBudget, handleDele
             </Segment.Group>
             { isOwner ?
                 <>
-                    <Button as={Link} to={`/script/${script._id}/edit`} floated='left' content='Edit' labelPosition='left' icon='pencil' />
+                    <Button as={Link} to={`/scripts/${script._id}/edit`} floated='left' content='Edit' labelPosition='left' icon='pencil' />
                     <Modal 
                         trigger= {
                             <Button color='red' floated='right' content='Delete' labelPosition='left' icon='delete' />

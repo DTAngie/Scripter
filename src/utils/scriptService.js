@@ -26,6 +26,14 @@ export function getOwnScripts() {
 //This can be used to get other user's scripts
 // }
 
+export function populateScripts(queries) {
+    return fetch(`${BASE_URL}/all${queries}`, {
+        headers: {
+            'Authorization' : 'Bearer ' + tokenService.getToken()
+        }
+    }).then(res => res.json());
+}
+
 
 export function getOne(id){
     return fetch(`${BASE_URL}/${id}`, {

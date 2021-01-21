@@ -34,7 +34,7 @@ export default function SignUpPage(props){
     try {
       await userService.signup(form);
       props.handleSignUpOrLogin();
-      history.push('/');
+      history.push('/dashboard');
     } catch (err) {
       console.log(err.message);
       setError(err.message);

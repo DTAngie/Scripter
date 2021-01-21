@@ -3,6 +3,7 @@ import { Grid } from 'semantic-ui-react';
 import PageHeader from '../../components/Header/Header';
 import LeftNavigation from '../../components/LeftNavigation/LeftNavigation';
 import ScriptList from '../../components/ScriptList/ScriptList';
+import BrowseScripts from '../../components/BrowseScripts/BrowseScripts';
 import * as scriptsAPI from '../../utils/scriptService';
 
 export default function ProfilePage({user, isProfile, handleLogout}){
@@ -34,7 +35,7 @@ export default function ProfilePage({user, isProfile, handleLogout}){
                 <ScriptList scripts={scripts}/>
                 </Grid.Column>
                 <Grid.Column width={4}>
-                    Side Content
+                    <BrowseScripts />
                 </Grid.Column>
             </Grid>
         </>

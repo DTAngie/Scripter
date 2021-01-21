@@ -14,9 +14,10 @@ export default function ScriptFormPage({formType}){
         const pathName = location.pathname;
         const editPath = '/edit';
         if (pathName.includes(editPath)) {
+            console.log('edit page')
             //If it's an edit page, get the script info
             try {
-                const basePath = '/script/';
+                const basePath = '/scripts/';
                 const scriptID = pathName.substring(pathName.indexOf(basePath)+basePath.length, pathName.indexOf(editPath));
                 //TODO change this to a different function that checks owner
                 // BEFORE sending
@@ -25,6 +26,9 @@ export default function ScriptFormPage({formType}){
             } catch (err){
 
             }
+        } else {
+            console.log('new page')
+            setScript({});
         }
         
     }
@@ -32,14 +36,14 @@ export default function ScriptFormPage({formType}){
     async function handleAddScript(data, id) {
         if (id) {
             const editedScript = await ScriptAPI.update(data, id);
-            history.push(`/script/${editedScript.scriptID}`)
+            history.push(`/scripts/${editedScript.scriptID}`)
         } else  {
             try {
                 const newScript = await ScriptAPI.create(data);
                 //TODO:: Does response have to be whole object or just id?
                 //If API is being called again, maybe streamline this one
                 //Same for the edit function above
-                history.push(`/script/${newScript.scriptID}`);
+                history.push(`/scripts/${newScript.scriptID}`);
             } catch (err) {
                 console.log(err);
             }
@@ -48,7 +52,7 @@ export default function ScriptFormPage({formType}){
 
     useEffect(()=> {
         getScript();
-    }, []);
+    }, [location]);
 
     return (
         <>

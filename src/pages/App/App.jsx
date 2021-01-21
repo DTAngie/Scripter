@@ -6,6 +6,7 @@ import PageHeader from '../../components/Header/Header';
 import SignupPage from '../SignupPage/SignupPage';
 import LoginPage from '../LoginPage/LoginPage';
 import HomePage from '../HomePage/HomePage';
+import ScriptIndexPage from '../ScriptIndexPage/ScriptIndexPage';
 import ProfilePage from '../ProfilePage/ProfilePage';
 import ScriptDetailPage from '../ScriptDetailPage/ScriptDetailPage';
 import ScriptFormPage from '../ScriptFormPage/ScriptFormPage';
@@ -36,6 +37,9 @@ function App() {
           <Route exact path="/">
               <HomePage user={user} handleLogout={handleLogout}/>
           </Route>
+          <Route path="/scripts/all">
+            <ScriptIndexPage /> 
+          </Route>
           {/* Pages that require login */}
           {userService.getUser() ?
             
@@ -44,16 +48,14 @@ function App() {
               {/* TODO: Maybe rename dashboard page to profile page? for reusability? */}
                 <ProfilePage user={user} isProfile={true} handleLogout={handleLogout}/>
               </Route>
-              <Route exact path='/script/new'>
-                <ScriptFormPage formType={'create'}/>
-                {/* //the edit form should have 'edit' in the props */}
-                {/* check to make sure that if formtype prop is actually needed */}
+              <Route exact path='/scripts/new'>
+                <ScriptFormPage />
               </Route>
-              <Route exact path="/script/:id">
+              <Route exact path="/scripts/:id">
                 <ScriptDetailPage />
               </Route>
-              <Route exact path='/script/:id/edit'>
-                <ScriptFormPage formType={'edit'} />
+              <Route exact path='/scripts/:id/edit'>
+                <ScriptFormPage />
               </Route>
 
             </Switch>
