@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { Grid } from 'semantic-ui-react';
 import LeftNavigation from '../../components/LeftNavigation/LeftNavigation';
 import ScriptForm from '../../components/ScriptForm/ScriptForm';
@@ -9,16 +9,15 @@ export default function ScriptFormPage({formType}){
     const [script, setScript] = useState({})
     const history = useHistory();
     const location = useLocation();
+    const params = useParams();
 
     async function getScript(){
         const pathName = location.pathname;
         const editPath = '/edit';
         if (pathName.includes(editPath)) {
-            console.log('edit page')
             //If it's an edit page, get the script info
             try {
-                const basePath = '/scripts/';
-                const scriptID = pathName.substring(pathName.indexOf(basePath)+basePath.length, pathName.indexOf(editPath));
+                const scriptID = params.id;
                 //TODO change this to a different function that checks owner
                 // BEFORE sending
                 const data = await ScriptAPI.getOne(scriptID);
@@ -27,7 +26,6 @@ export default function ScriptFormPage({formType}){
 
             }
         } else {
-            console.log('new page')
             setScript({});
         }
         

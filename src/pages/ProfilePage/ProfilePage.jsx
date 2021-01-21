@@ -1,29 +1,53 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { Grid } from 'semantic-ui-react';
-import PageHeader from '../../components/Header/Header';
 import LeftNavigation from '../../components/LeftNavigation/LeftNavigation';
 import ScriptList from '../../components/ScriptList/ScriptList';
 import BrowseScripts from '../../components/BrowseScripts/BrowseScripts';
 import * as scriptsAPI from '../../utils/scriptService';
+import { useLocation } from 'react-router-dom';
 
-export default function ProfilePage({user, isProfile, handleLogout}){
+export default function ProfilePage({user, isProfile}){
     const [scripts, setScripts] = useState([]);
+    const [isOwner, setOwner] = useState(false);
+    const location = useLocation();
+    const params = useParams();
+    const authorID = params.id ? params.id : user._id;
 
-    async function getScripts(user){
-        //TODO: maybe need a ternary statement here in case profile
-        //TODO: does not belong to user
-        try {
-            const data = await scriptsAPI.getOwnScripts();
-            //TODO: //versus...getUsersScripts for others
-            setScripts([...data.scripts]);
-        } catch (err) {
-            console.log(err);
+    async function getScripts(){
+        if(isOwner) {
+            try {
+                const data = await scriptsAPI.getOwnScripts();
+                //TODO: //versus...getUsersScripts for others
+                setScripts([...data.scripts]);
+            } catch (err) {
+                console.log(err);
+            }
+        } else {
+            try {
+                const data = await scriptsAPI.getUserScripts(authorID);
+                setScripts([...data.scripts]);
+            } catch (err) {
+                console.log(err);
+            }
         }
     }
 
+    function checkOwner(){
+        if (user._id.toString() === authorID.toString()) {
+            setOwner(true);
+        } else {
+            setOwner(false);
+        }
+    }
+    
     useEffect(()=> {
-        getScripts(user);
-    }, [])
+        checkOwner();
+    }, [location]);
+    
+    useEffect(()=> {
+        getScripts();
+    }, [isOwner]);
 
     return (
         <>

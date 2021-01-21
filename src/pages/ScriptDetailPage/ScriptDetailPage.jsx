@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, useHistory, Redirect } from 'react-router-dom';
+import { useLocation, useHistory, useParams } from 'react-router-dom';
 import { Grid } from 'semantic-ui-react';
 import LeftNavigation from '../../components/LeftNavigation/LeftNavigation';
 import ScriptDetail from '../../components/ScriptDetail/ScriptDetail';
@@ -9,6 +9,7 @@ export default function ScriptDetailPage({user}){
     const [script, setScript] = useState({});
     const [displayBudget, setDisplayBudget] = useState('');
     const [isOwner, setOwner] = useState(false);
+    const params = useParams();
     
     const budgets = {
         '0': 'Under $100K',
@@ -24,9 +25,7 @@ export default function ScriptDetailPage({user}){
     const history = useHistory();
 
     async function getScript(){
-        const pathName = location.pathname;
-        const basePath = '/scripts/';
-        const scriptID = pathName.substring(pathName.indexOf(basePath)+basePath.length);
+        const scriptID = params.id;
         try {
             const data = await scriptAPI.getOne(scriptID);
             setScript(data.script);
@@ -70,12 +69,17 @@ export default function ScriptDetailPage({user}){
                     <LeftNavigation ownerIndex={script.author}/>
                 </Grid.Column>
                 <Grid.Column width={8}>
-                <ScriptDetail
-                    isOwner={isOwner}
-                    script={script}
-                    displayBudget={displayBudget}
-                    handleDeleteScript={handleDeleteScript}
-                />
+                {Object.keys(script).length > 0 ?
+                    <ScriptDetail
+                        isOwner={isOwner}
+                        script={script}
+                        displayBudget={displayBudget}
+                        handleDeleteScript={handleDeleteScript}
+                    />
+                    :
+                    <p>Loading</p>
+                    //TODO: Add in a loading icon. Use this ternary on other pages as well.     
+                }
                 </Grid.Column>
                 <Grid.Column width={4}>
                     Side Content

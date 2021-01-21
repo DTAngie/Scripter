@@ -21,10 +21,13 @@ export function getOwnScripts() {
     }).then(res => res.json());
 }
 
-
-// export function getUserScripts(id){
-//This can be used to get other user's scripts
-// }
+export function getUserScripts(id) {
+    return fetch(`${BASE_URL}/all?author=${id}`, {
+        headers: {
+            'Authorization' : 'Bearer ' + tokenService.getToken()
+        }
+    }).then(res => res.json());
+}
 
 export function populateScripts(queries) {
     return fetch(`${BASE_URL}/all${queries}`, {
@@ -35,7 +38,7 @@ export function populateScripts(queries) {
 }
 
 
-export function getOne(id){
+export function getOne(id) {
     return fetch(`${BASE_URL}/${id}`, {
         headers: {
             'Authorization': 'Bearer ' + tokenService.getToken()

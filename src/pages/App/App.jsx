@@ -47,7 +47,7 @@ function App() {
             <Switch>
               <Route path="/dashboard">
               {/* TODO: Maybe rename dashboard page to profile page? for reusability? */}
-                <ProfilePage user={user} isProfile={true} handleLogout={handleLogout}/>
+                <ProfilePage user={user} isProfile={true} />
               </Route>
               <Route exact path='/scripts/new'>
                 <ScriptFormPage />
@@ -57,6 +57,9 @@ function App() {
               </Route>
               <Route exact path='/scripts/:id/edit'>
                 <ScriptFormPage />
+              </Route>
+              <Route exact path='/author/:id'>
+                <ProfilePage user={user} isProfile={false} />
               </Route>
 
             </Switch>
