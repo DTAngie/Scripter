@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { List, Accordion, Icon } from 'semantic-ui-react';
 import './BrowseScripts.css';
 
@@ -55,7 +56,7 @@ export default function BrowseScripts(){
 
     function handleAccordionClick(e, titleProps){
         const elemIndex = titleProps.index;
-        if (activeIndex.indexOf(elemIndex) !== 0){
+        if (activeIndex.indexOf(elemIndex) === -1){
             setActiveIndex([...activeIndex, elemIndex]);
         } else {
             setActiveIndex(
@@ -68,7 +69,7 @@ export default function BrowseScripts(){
 
     return(
         <List className="BrowseScripts">
-            <List.Item as="a">Browse All</List.Item>
+            <List.Item as={Link} to='/scripts/all'>Browse All</List.Item>
             <List.Item>
                 <Accordion>
                     <Accordion.Title
@@ -82,7 +83,7 @@ export default function BrowseScripts(){
                     <Accordion.Content active={activeIndex.indexOf('0') !== -1}>
                         <List.List>
                             { genres.map((item, index)=> {
-                                return (<List.Item as="a" key={index}>{item}</List.Item>)
+                                return (<List.Item as={Link} to={`/scripts/all?genre=${item}`} key={index}>{item}</List.Item>)
                             })}
                         </List.List>
                     </Accordion.Content>
@@ -101,7 +102,7 @@ export default function BrowseScripts(){
                     <Accordion.Content active={activeIndex.indexOf('1') !== -1}>
                         <List.List>
                             { mediaTypes.map((item, index)=> {
-                                return (<List.Item as="a" key={index}>{item}</List.Item>)
+                                return (<List.Item as={Link} to={`/scripts/all?mediaType=${item}`} key={index}>{item}</List.Item>)
                             })}
                         </List.List>
                     </Accordion.Content>
@@ -120,7 +121,7 @@ export default function BrowseScripts(){
                     <Accordion.Content active={activeIndex.indexOf('2') !== -1}>
                         <List.List>
                             { stages.map((item, index)=> {
-                                return (<List.Item as="a" key={index}>{item}</List.Item>)
+                                return (<List.Item as={Link} to={`/scripts/all?stage=${item}`} key={index}>{item}</List.Item>)
                             })}
                         </List.List>
                     </Accordion.Content>
@@ -139,7 +140,7 @@ export default function BrowseScripts(){
                     <Accordion.Content active={activeIndex.indexOf('3') !== -1}>
                         <List.List>
                             { budgets.map((item, index)=> {
-                                return (<List.Item as="a" key={index}>{item.text}</List.Item>)
+                                return (<List.Item as={Link} to={`/scripts/all?budget=${item.value}`} key={index}>{item.text}</List.Item>)
                             })}
                         </List.List>
                     </Accordion.Content>

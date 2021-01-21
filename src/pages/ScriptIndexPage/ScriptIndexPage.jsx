@@ -17,7 +17,7 @@ export default function ScriptIndexPage(){
 
     useEffect(()=> {
         getScripts();
-    }, [])
+    }, [location])
 
     return(
         <>
