@@ -39,7 +39,7 @@ export default function ScriptDetail({isOwner, script, displayBudget, handleDele
                     <div style={{clear:"both"}}></div>
                 </>
                 :
-                ''
+                <p>Script by <Link to="/author/">{script.author ? script.author.username: ''}</Link></p>
             }
         </Segment>
     )

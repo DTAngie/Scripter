@@ -5,11 +5,10 @@ import LeftNavigation from '../../components/LeftNavigation/LeftNavigation';
 import ScriptDetail from '../../components/ScriptDetail/ScriptDetail';
 import * as scriptAPI from '../../utils/scriptService';
 
-export default function ScriptDetailPage(){
+export default function ScriptDetailPage({user}){
     const [script, setScript] = useState({});
     const [displayBudget, setDisplayBudget] = useState('');
-    //TODO: Ternary statement to determine if owner or not
-    const isOwner = true;
+    const [isOwner, setOwner] = useState(false);
     
     const budgets = {
         '0': 'Under $100K',
@@ -49,12 +48,19 @@ export default function ScriptDetailPage(){
         setDisplayBudget(budgets[script.budget]);
     }
 
+    function checkOwner(){
+        if(script.author) {
+            setOwner((user._id.toString() === script.author._id.toString()) ? true: false);
+        }
+    }
+
     useEffect(() => {
-        getScript()
-    }, []);
+        getScript();
+    }, [location]);
 
     useEffect(()=> {
         getBudget();
+        checkOwner();
     }, [script]);
 
     return (

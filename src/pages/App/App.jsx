@@ -23,6 +23,7 @@ function App() {
     userService.logout();
     setUser(null);
   }
+  //TODO Create sign up link on front page when designing it
 
   return (
     <div className="App">
@@ -52,7 +53,7 @@ function App() {
                 <ScriptFormPage />
               </Route>
               <Route exact path="/scripts/:id">
-                <ScriptDetailPage />
+                <ScriptDetailPage user={user}/>
               </Route>
               <Route exact path='/scripts/:id/edit'>
                 <ScriptFormPage />
