@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useHistory, useParams } from 'react-router-dom';
 import { Grid } from 'semantic-ui-react';
+import BrowseScripts from '../../components/BrowseScripts/BrowseScripts';
 import LeftNavigation from '../../components/LeftNavigation/LeftNavigation';
 import ScriptDetail from '../../components/ScriptDetail/ScriptDetail';
 import * as scriptAPI from '../../utils/scriptService';
@@ -10,7 +11,7 @@ export default function ScriptDetailPage({user}){
     const [displayBudget, setDisplayBudget] = useState('');
     const [isOwner, setOwner] = useState(false);
     const params = useParams();
-    
+
     const budgets = {
         '0': 'Under $100K',
         '1': '$100K - $250K',
@@ -43,6 +44,12 @@ export default function ScriptDetailPage({user}){
         }
     }
     
+    function handleRating(rating){
+        console.log(rating)
+        // try{}
+        // console.log('one level up', rating)
+    }
+    
     function getBudget(){
         setDisplayBudget(budgets[script.budget]);
     }
@@ -52,6 +59,7 @@ export default function ScriptDetailPage({user}){
             setOwner((user._id.toString() === script.author._id.toString()) ? true: false);
         }
     }
+
 
     useEffect(() => {
         getScript();
@@ -75,6 +83,7 @@ export default function ScriptDetailPage({user}){
                         script={script}
                         displayBudget={displayBudget}
                         handleDeleteScript={handleDeleteScript}
+                        handleRating={handleRating}
                     />
                     :
                     <p>Loading</p>
@@ -82,7 +91,7 @@ export default function ScriptDetailPage({user}){
                 }
                 </Grid.Column>
                 <Grid.Column width={4}>
-                    Side Content
+                    <BrowseScripts />
                 </Grid.Column>
             </Grid>
         </>

@@ -1,6 +1,16 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const ratingsSchema = Schema({
+    username: String,
+    userID: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+    }
+}, {
+    timestamps: true
+})
+
 const scriptSchema = new Schema({
     title: String,
     synopsis: String,
@@ -63,6 +73,8 @@ const scriptSchema = new Schema({
         ref: 'User',
         required: true,
     },
+    ratings: [ratingsSchema],
+    averageRating: Number
 }, {
     timestamps: true
 });

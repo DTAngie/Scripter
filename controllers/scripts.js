@@ -1,4 +1,3 @@
-const { Redirect } = require('react-router-dom');
 const Script = require('../models/Script');
 
 module.exports = {

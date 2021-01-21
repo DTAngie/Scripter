@@ -1,14 +1,34 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Segment, Header, Divider, Button, Modal } from 'semantic-ui-react';
+import { Segment, Header, Divider, Button, Modal, Grid, Rating } from 'semantic-ui-react';
+
+export default function ScriptDetail({isOwner, script, displayBudget, handleDeleteScript, handleRating}) {
+    const averageRatingDisplay = displayAverageScore();
+
+    function handleRate(e, {rating}){
+        handleRating(rating);
+    }
+
+    function displayAverageScore() {
+        switch(script.averageRating) {
+            case 1:
+                return "Pass";
+            case 2:
+                return "Consider";
+            case 3:
+                return "Purchase";
+            default:
+                return "Unrated";
+        }
+    }
 
 
-export default function ScriptDetail({isOwner, script, displayBudget, handleDeleteScript}) {  
     return (       
         <Segment>
             <Header>
                 {script.title}
             </Header>
+            <p>{averageRatingDisplay}</p>
             <p>{script.logline}</p>
             <Divider></Divider>
             <p>{script.synopsis}</p>
@@ -39,7 +59,19 @@ export default function ScriptDetail({isOwner, script, displayBudget, handleDele
                     <div style={{clear:"both"}}></div>
                 </>
                 :
-                <p>Script by <Link to={`/author/${script.author._id}`}>{script.author.username}</Link></p>
+                <>
+                {/* Rating */}
+                <Grid>
+                    <Grid.Column width={8}>
+                        <p>Rate this Script</p>
+                        {/* TODO: make default rating the script's rating */}
+                        <Rating icon="star" defaultRating={script.averageRating} maxRating={3} onRate={handleRate}/>
+                    </Grid.Column>
+                    <Grid.Column width={8}>
+                        <p>Script by <Link to={`/author/${script.author._id}`}>{script.author.username}</Link></p>
+                    </Grid.Column>
+                </Grid>
+                </>
             }
         </Segment>
     )

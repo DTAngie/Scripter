@@ -69,7 +69,7 @@ export default function BrowseScripts(){
 
     return(
         <List className="BrowseScripts">
-            <List.Item as={Link} to='/scripts/all'>Browse All</List.Item>
+            <List.Item as={Link} to='/scripts/all'>Browse All Scripts</List.Item>
             <List.Item>
                 <Accordion>
                     <Accordion.Title

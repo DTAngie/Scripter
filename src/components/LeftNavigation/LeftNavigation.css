@@ -1,3 +1,7 @@
 .LeftNavigation a {
     display: block;
 }
+
+.LeftNavigation .ui.divider {
+    margin-top: 3em;
+}

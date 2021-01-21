@@ -11,7 +11,7 @@ export default function ScriptList({scripts}){
                 return (
                     <Link key={s._id} to={`/scripts/${s._id}`}>
                         <Card >
-                            <Card.Content>
+                            <Card.Content style={{height: '200px'}}>
                             <Card.Header>{s.title}</Card.Header>
                             <Card.Description>{s.logline}</Card.Description>
                             <Card.Description>{s.synopsis}</Card.Description>
