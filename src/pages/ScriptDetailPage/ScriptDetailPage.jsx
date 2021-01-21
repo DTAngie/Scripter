@@ -5,9 +5,11 @@ import BrowseScripts from '../../components/BrowseScripts/BrowseScripts';
 import LeftNavigation from '../../components/LeftNavigation/LeftNavigation';
 import ScriptDetail from '../../components/ScriptDetail/ScriptDetail';
 import * as scriptAPI from '../../utils/scriptService';
+import * as ratingAPI from '../../utils/ratingsService';
 
 export default function ScriptDetailPage({user}){
     const [script, setScript] = useState({});
+    const [userRating, setRating] = useState(null);
     const [displayBudget, setDisplayBudget] = useState('');
     const [isOwner, setOwner] = useState(false);
     const params = useParams();
@@ -44,14 +46,30 @@ export default function ScriptDetailPage({user}){
         }
     }
     
-    function handleRating(rating){
+    async function handleRating(rating){
         console.log(rating)
-        // try{}
-        // console.log('one level up', rating)
+        if(userRating) {
+            try{
+                console.log('remove the rating')
+                // const data = await ratingAPI.
+            } catch (err) {
+                console.log(err);
+            }
+        } else {
+            console.log('add this rating');
+            const newRating = await ratingAPI.create(rating, script._id);
+            setRating(newRating);
+        }
     }
     
     function getBudget(){
         setDisplayBudget(budgets[script.budget]);
+    }
+//This gets user's specific rating for said script
+    function getRatings() {
+        //use API to get this
+        // TODO: START HERE
+        setRating();
     }
 
     function checkOwner(){
@@ -67,6 +85,7 @@ export default function ScriptDetailPage({user}){
 
     useEffect(()=> {
         getBudget();
+        getRatings();
         checkOwner();
     }, [script]);
 
@@ -81,6 +100,7 @@ export default function ScriptDetailPage({user}){
                     <ScriptDetail
                         isOwner={isOwner}
                         script={script}
+                        userRating={userRating}
                         displayBudget={displayBudget}
                         handleDeleteScript={handleDeleteScript}
                         handleRating={handleRating}
