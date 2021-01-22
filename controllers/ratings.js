@@ -8,7 +8,6 @@ module.exports = {
 }
 
 async function create(req, res) {
-    //TODO: calculate and update new average score
     try {
         const rating = await Rating.create({score: req.body.rating, rater: req.user, script: req.body.script});
         res.status(201).json({rating: rating});
@@ -19,7 +18,7 @@ async function create(req, res) {
 
 async function show(req, res) {
     try {
-        const rating = await Rating.findOne({rater: req.query.user, script: req.query.script}).exec();
+        const rating = await Rating.findOne({rater: req.user, script: req.query.script});
         if(rating) {
             res.status(200).json({rating: rating});
         } else {
@@ -31,7 +30,6 @@ async function show(req, res) {
 }
 
 async function update(req, res) {
-    //TODO: calculate and update new average score
     try {
         const rating = await Rating.findOne({_id: req.params.id});
         rating.score = req.body.rating;

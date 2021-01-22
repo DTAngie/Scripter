@@ -13,15 +13,12 @@ export default function ScriptRating({userRating, handleRate, convertScore}){
         const starValue = e.target.getAttribute('aria-posinset');
         switch(starValue) {
             case '1':
-                console.log('value is 1')
                 setPopupText("Pass");
                 break;
             case '2':
-                console.log('value is 2')
                 setPopupText("Consider");
                 break;
             case '3':
-                console.log('value is 3');
                 setPopupText("Purchase");
                 break;
             default:

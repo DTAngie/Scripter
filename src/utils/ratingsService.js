@@ -13,8 +13,8 @@ export function create(rating, scriptID){
     }).then(res => res.json());
 }
 
-export function getOne(script, user) {
-    return fetch(`${BASE_URL}/?user=${user}&&script=${script}`, {
+export function getOne(script) {
+    return fetch(`${BASE_URL}/?script=${script}`, {
         headers: {
             'Authorization' : 'Bearer ' + tokenService.getToken()
         }

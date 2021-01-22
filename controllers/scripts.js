@@ -1,4 +1,5 @@
 const Script = require('../models/Script');
+const Rating = require('../models/ratings');
 
 module.exports = {
     create,
@@ -51,9 +52,28 @@ async function allScripts(req, res) {
 async function show(req, res) {
     try {
         const script = await Script.findOne({_id: req.params.id}).populate('author', 'username').exec();
+        const avg = await calculateAverageScore(script);
+        console.log('average is', avg);
+        script.averageRating = avg;
+        script.save();
         res.status(200).json({script});
     } catch (err) {
         console.log(err);
+    }
+
+
+    async function calculateAverageScore(scriptID){
+        try {
+            const ratings = await Rating.find({script: scriptID});
+            let sumTotal = 0;
+            ratings.forEach(function(rating) {
+                sumTotal += rating.score;
+            })
+            return Math.round(sumTotal/ratings.length);
+        } catch(err) {
+            console.log(err);
+            return null;
+        }
     }
 }
 
@@ -80,3 +100,4 @@ async function deleteOne(req, res){
         console.log(err);
     }
 }
+

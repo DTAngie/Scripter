@@ -66,8 +66,11 @@ export default function ScriptDetailPage({user}){
     }
 //This gets user's specific rating for said script
     async function getRatings() {
-        const data = await ratingAPI.getOne(script._id, user._id);
-        setRating(data.rating);
+        if(Object.keys(script).length > 0) {
+            const data = await ratingAPI.getOne(script._id, user._id);
+            setRating(data.rating);
+
+        }
     }
 
     function checkOwner(){
