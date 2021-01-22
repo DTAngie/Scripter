@@ -13,41 +13,39 @@ export default function ProfilePage({user, isProfile}){
     const location = useLocation();
     const params = useParams();
     const authorID = params.id ? params.id : user._id;
-
-    async function getScripts(){
-        if(isOwner) {
-            try {
-                const data = await scriptsAPI.getOwnScripts();
-                //TODO: //versus...getUsersScripts for others
-                setScripts([...data.scripts]);
-            } catch (err) {
-                console.log(err);
-            }
-        } else {
-            try {
-                const data = await scriptsAPI.getUserScripts(authorID);
-                setScripts([...data.scripts]);
-            } catch (err) {
-                console.log(err);
-            }
-        }
-    }
-
-    function checkOwner(){
-        if (user._id.toString() === authorID.toString()) {
-            setOwner(true);
-        } else {
-            setOwner(false);
-        }
-    }
     
     useEffect(()=> {
+        function checkOwner(){
+            if (user._id.toString() === authorID.toString()) {
+                setOwner(true);
+            } else {
+                setOwner(false);
+            }
+        }
         checkOwner();
-    }, [location]);
+    }, [location, user._id, authorID]);
     
     useEffect(()=> {
+        async function getScripts(){
+            if(isOwner) {
+                try {
+                    const data = await scriptsAPI.getOwnScripts();
+                    //TODO: //versus...getUsersScripts for others
+                    setScripts([...data.scripts]);
+                } catch (err) {
+                    console.log(err);
+                }
+            } else {
+                try {
+                    const data = await scriptsAPI.getUserScripts(authorID);
+                    setScripts([...data.scripts]);
+                } catch (err) {
+                    console.log(err);
+                }
+            }
+        }
         getScripts();
-    }, [isOwner]);
+    }, [isOwner, authorID]);
 
     return (
         <>

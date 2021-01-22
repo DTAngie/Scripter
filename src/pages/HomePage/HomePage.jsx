@@ -1,5 +1,5 @@
 import React from 'react';
-import GuestHeader from '../../components/GuestHeader/GuestHeader';
+
 
 export default function HomePage({user, handleLogout}) {
     return (

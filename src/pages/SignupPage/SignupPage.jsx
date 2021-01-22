@@ -1,8 +1,7 @@
-import React, {useState, useRef, useEffect } from 'react';
+import React, {useState } from 'react';
 import './SignupPage.css';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage'
 import userService from '../../utils/userService';
-import PageHeader from '../../components/Header/Header';
 import { Grid, Header, Form, Button, Segment } from 'semantic-ui-react';
 import { useHistory } from 'react-router-dom';
 

@@ -26,16 +26,6 @@ export default function ScriptDetailPage({user}){
        
     const location = useLocation();
     const history = useHistory();
-
-    async function getScript(){
-        const scriptID = params.id;
-        try {
-            const data = await scriptAPI.getOne(scriptID);
-            setScript(data.script);
-        } catch(err) {
-            console.log(err);
-        }
-    }
     
     async function handleDeleteScript(scriptID) {
         try {
@@ -61,34 +51,47 @@ export default function ScriptDetailPage({user}){
         }
     }
     
-    function getBudget(){
-        setDisplayBudget(budgets[script.budget]);
-    }
-//This gets user's specific rating for said script
-    async function getRatings() {
-        if(Object.keys(script).length > 0) {
-            const data = await ratingAPI.getOne(script._id, user._id);
-            setRating(data.rating);
 
-        }
-    }
 
-    function checkOwner(){
-        if(script.author) {
-            setOwner((user._id.toString() === script.author._id.toString()) ? true: false);
-        }
-    }
+ 
 
 
     useEffect(() => {
+        async function getScript(){
+            const scriptID = params.id;
+            try {
+                const data = await scriptAPI.getOne(scriptID);
+                setScript(data.script);
+            } catch(err) {
+                console.log(err);
+            }
+        }
         getScript();
-    }, [location]);
+    }, [location, params.id]);
 
     useEffect(()=> {
+        function getBudget(){
+            setDisplayBudget(budgets[script.budget]);
+        }
+
+        //This gets user's specific rating for said script
+        async function getRatings() {
+            if(Object.keys(script).length > 0) {
+                const data = await ratingAPI.getOne(script._id, user._id);
+                setRating(data.rating);
+    
+            }
+        }
+
+        function checkOwner(){
+            if(script.author) {
+                setOwner((user._id.toString() === script.author._id.toString()) ? true: false);
+            }
+        }
         getBudget();
         getRatings();
         checkOwner();
-    }, [script]);
+    }, [script, budgets, user._id]);
 
 
 

@@ -11,25 +11,7 @@ export default function ScriptFormPage({formType}){
     const location = useLocation();
     const params = useParams();
 
-    async function getScript(){
-        const pathName = location.pathname;
-        const editPath = '/edit';
-        if (pathName.includes(editPath)) {
-            //If it's an edit page, get the script info
-            try {
-                const scriptID = params.id;
-                //TODO change this to a different function that checks owner
-                // BEFORE sending
-                const data = await ScriptAPI.getOne(scriptID);
-                setScript({...data.script});
-            } catch (err){
-
-            }
-        } else {
-            setScript({});
-        }
-        
-    }
+    
 
     async function handleAddScript(data, id) {
         if (id) {
@@ -49,8 +31,27 @@ export default function ScriptFormPage({formType}){
     }
 
     useEffect(()=> {
+        async function getScript(){
+            const pathName = location.pathname;
+            const editPath = '/edit';
+            if (pathName.includes(editPath)) {
+                //If it's an edit page, get the script info
+                try {
+                    const scriptID = params.id;
+                    //TODO change this to a different function that checks owner
+                    // BEFORE sending
+                    const data = await ScriptAPI.getOne(scriptID);
+                    setScript({...data.script});
+                } catch (err){
+
+                }
+            } else {
+                setScript({});
+            }
+            
+        }
         getScript();
-    }, [location]);
+    }, [location, params.id]);
 
     return (
         <>

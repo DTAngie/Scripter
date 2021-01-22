@@ -1,7 +1,5 @@
-import { PromiseProvider } from 'mongoose';
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { Button, Form, Segment, Select } from 'semantic-ui-react';
+import { Button, Form, Segment } from 'semantic-ui-react';
 
 export default function  NewScriptForm({script, handleAddScript}){
     const [form, setForm] = useState({
@@ -13,7 +11,6 @@ export default function  NewScriptForm({script, handleAddScript}){
         stage: '',
         budget: '',
     });
-    const history = useHistory();
   
     const genres = [
         { key: '0', text: 'Action', value: 'Action' },
@@ -81,19 +78,19 @@ export default function  NewScriptForm({script, handleAddScript}){
     }
 
 
-    function preFillForm(){
-        setForm({
-            title: script.title ? script.title : '',
-            logline: script.logline ? script.logline : '',
-            synopsis: script.synopsis ? script.synopsis : '',
-            genre: script.genre ? script.genre : '',
-            mediaType: script.mediaType ? script.mediaType : '',
-            stage: script.stage ? script.stage : '',
-            budget: script.budget ? script.budget.toString() : '',
-        });
-    }
-
+    
     useEffect(()=> {
+        function preFillForm(){
+            setForm({
+                title: script.title ? script.title : '',
+                logline: script.logline ? script.logline : '',
+                synopsis: script.synopsis ? script.synopsis : '',
+                genre: script.genre ? script.genre : '',
+                mediaType: script.mediaType ? script.mediaType : '',
+                stage: script.stage ? script.stage : '',
+                budget: script.budget ? script.budget.toString() : '',
+            });
+        }
         preFillForm();
     }, [script])
 

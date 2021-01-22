@@ -9,13 +9,13 @@ export default function ScriptIndexPage(){
     const [scripts, setScripts] = useState([]);
     const location = useLocation();
 
-    async function getScripts(){
-        const data = await scriptsAPI.populateScripts(location.search);
-        setScripts([...data.scripts]);
-    } 
-
-
+    
+    
     useEffect(()=> {
+        async function getScripts(){
+            const data = await scriptsAPI.populateScripts(location.search);
+            setScripts([...data.scripts]);
+        } 
         getScripts();
     }, [location])
 
