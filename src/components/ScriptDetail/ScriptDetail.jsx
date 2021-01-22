@@ -1,15 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { Segment, Header, Divider, Button, Modal, Grid, Rating } from 'semantic-ui-react';
+import { Segment, Header, Divider, Button, Modal, Grid } from 'semantic-ui-react';
+import ScriptRating from '../ScriptRating/ScriptRating';
 
-export default function ScriptDetail({isOwner, script, userRating, displayBudget, handleDeleteScript, handleRating}) {
-    const averageRatingDisplay = displayAverageScore();
-
-    function handleRate(e, {rating}){
-        handleRating(rating);
-    }
-
-    function displayAverageScore() {
+export default function ScriptDetail({isOwner, script, userRating, displayBudget, handleDeleteScript, handleRate}) {
+    const averageRatingDisplay = convertScoreToText();
+    
+    function convertScoreToText() {
         switch(script.averageRating) {
             case 1:
                 return "Pass";
@@ -62,8 +59,7 @@ export default function ScriptDetail({isOwner, script, userRating, displayBudget
                 {/* Rating */}
                 <Grid>
                     <Grid.Column width={8}>
-                        <p>Rate this Script</p>
-                        <Rating icon="star" rating={userRating} maxRating={3} onRate={handleRate}/>
+                        <ScriptRating userRating={userRating} handleRate={handleRate} convertScore={convertScoreToText}/>
                     </Grid.Column>
                     <Grid.Column width={8}>
                         <p>Script by <Link to={`/author/${script.author._id}`}>{script.author.username}</Link></p>

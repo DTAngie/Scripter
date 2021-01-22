@@ -103,7 +103,7 @@ export default function ScriptDetailPage({user}){
                         userRating={userRating ? userRating.score : null}
                         displayBudget={displayBudget}
                         handleDeleteScript={handleDeleteScript}
-                        handleRating={handleRating}
+                        handleRate={handleRating}
                     />
                     :
                     <p>Loading</p>
