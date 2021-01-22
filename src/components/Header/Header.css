@@ -1,3 +1,7 @@
 .Page-Header #app-name {
     color: rgb(132, 23, 78);
 }
+
+.Page-Header {
+    z-index: 10;
+}

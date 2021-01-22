@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import {Segment,Header, Grid} from 'semantic-ui-react';
+import {Segment,Header, Grid, List} from 'semantic-ui-react';
 import './Header.css';
 
 export default function PageHeader({user, handleLogout}) {
@@ -8,7 +8,9 @@ export default function PageHeader({user, handleLogout}) {
         <Segment className="Page-Header">
             <Grid>
                 <Grid.Column floated="left" width={4}>
-                    <Header as="h1" id="app-name">Scripter</Header>
+                    <Link to={user ? '/dashboard' : '/'}>
+                        <Header as="h1" id="app-name">Scripter</Header>
+                    </Link>
                 </Grid.Column>
             <Grid.Column floated="right" width={4}>
                 {user ? 
@@ -19,7 +21,14 @@ export default function PageHeader({user, handleLogout}) {
                 <Link to="" onClick={handleLogout}>Log Out</Link>
                 </>
                 :
-                <Link to="/login">Log In</Link>
+                <List horizontal>
+                    <List.Item>
+                        <Link to="/signup">Sign Up</Link>
+                    </List.Item>
+                    <List.Item>
+                        <Link to="/login">Log In</Link>
+                    </List.Item>
+                </List>
                 }
             </Grid.Column>
             </Grid>
