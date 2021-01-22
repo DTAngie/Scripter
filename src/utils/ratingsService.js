@@ -20,3 +20,14 @@ export function getOne(script, user) {
         }
     }).then(res => res.json());
 }
+
+export function update(newRating, currentRatingID) {
+    return fetch(`${BASE_URL}/${currentRatingID}`, {
+        method: 'PUT',
+        body: JSON.stringify({rating: newRating}),
+        headers: {
+            'Authorization': 'Bearer ' + tokenService.getToken(),
+            'Content-Type': 'application/json'
+        }
+    }).then(res => res.json());
+}

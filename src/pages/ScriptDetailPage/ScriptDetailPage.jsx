@@ -9,7 +9,7 @@ import * as ratingAPI from '../../utils/ratingsService';
 
 export default function ScriptDetailPage({user}){
     const [script, setScript] = useState({});
-    const [userRating, setRating] = useState(null);
+    const [userRating, setRating] = useState({});
     const [displayBudget, setDisplayBudget] = useState('');
     const [isOwner, setOwner] = useState(false);
     const params = useParams();
@@ -45,20 +45,19 @@ export default function ScriptDetailPage({user}){
             console.log(err);
         }
     }
-    
+    //TODO: Make sure you can't vote on your own script
+    // TODO: Add little popups that label each star if possible
     async function handleRating(rating){
-        console.log(rating)
         if(userRating) {
             try{
-                console.log('remove the rating')
-                // const data = await ratingAPI.
+                const updatedRating = await ratingAPI.update(rating, userRating._id);
+                setRating(updatedRating.rating);
             } catch (err) {
                 console.log(err);
             }
         } else {
-            console.log('add this rating');
             const newRating = await ratingAPI.create(rating, script._id);
-            setRating(newRating);
+            setRating(newRating.rating);
         }
     }
     
@@ -88,6 +87,8 @@ export default function ScriptDetailPage({user}){
         checkOwner();
     }, [script]);
 
+
+
     return (
         <>
             <Grid>
@@ -99,7 +100,7 @@ export default function ScriptDetailPage({user}){
                     <ScriptDetail
                         isOwner={isOwner}
                         script={script}
-                        userRating={userRating}
+                        userRating={userRating ? userRating.score : null}
                         displayBudget={displayBudget}
                         handleDeleteScript={handleDeleteScript}
                         handleRating={handleRating}

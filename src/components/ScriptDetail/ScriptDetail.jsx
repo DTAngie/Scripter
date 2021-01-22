@@ -63,7 +63,7 @@ export default function ScriptDetail({isOwner, script, userRating, displayBudget
                 <Grid>
                     <Grid.Column width={8}>
                         <p>Rate this Script</p>
-                        <Rating icon="star" defaultRating={userRating} rating={userRating} maxRating={3} onRate={handleRate}/>
+                        <Rating icon="star" rating={userRating} maxRating={3} onRate={handleRate}/>
                     </Grid.Column>
                     <Grid.Column width={8}>
                         <p>Script by <Link to={`/author/${script.author._id}`}>{script.author.username}</Link></p>
