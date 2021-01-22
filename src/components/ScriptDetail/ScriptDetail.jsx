@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Segment, Header, Divider, Button, Modal, Grid, Rating } from 'semantic-ui-react';
 
@@ -21,7 +21,6 @@ export default function ScriptDetail({isOwner, script, userRating, displayBudget
                 return "Unrated";
         }
     }
-
 
     return (       
         <Segment>
@@ -64,8 +63,7 @@ export default function ScriptDetail({isOwner, script, userRating, displayBudget
                 <Grid>
                     <Grid.Column width={8}>
                         <p>Rate this Script</p>
-                        {/* TODO: make default rating the script's rating */}
-                        <Rating icon="star" defaultRating={userRating} maxRating={3} onRate={handleRate}/>
+                        <Rating icon="star" defaultRating={userRating} rating={userRating} maxRating={3} onRate={handleRate}/>
                     </Grid.Column>
                     <Grid.Column width={8}>
                         <p>Script by <Link to={`/author/${script.author._id}`}>{script.author.username}</Link></p>

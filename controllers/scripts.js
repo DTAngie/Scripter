@@ -50,7 +50,7 @@ async function allScripts(req, res) {
 
 async function show(req, res) {
     try {
-        const script = await (await Script.findOne({_id: req.params.id})).populate('author', 'username').execPopulate();
+        const script = await Script.findOne({_id: req.params.id}).populate('author', 'username').exec();
         res.status(200).json({script});
     } catch (err) {
         console.log(err);

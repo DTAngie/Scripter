@@ -66,10 +66,9 @@ export default function ScriptDetailPage({user}){
         setDisplayBudget(budgets[script.budget]);
     }
 //This gets user's specific rating for said script
-    function getRatings() {
-        //use API to get this
-        // TODO: START HERE
-        setRating();
+    async function getRatings() {
+        const data = await ratingAPI.getOne(script._id, user._id);
+        setRating(data.rating);
     }
 
     function checkOwner(){
