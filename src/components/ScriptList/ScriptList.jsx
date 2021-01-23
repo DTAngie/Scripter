@@ -13,8 +13,8 @@ export default function ScriptList({scripts}){
                         <Card >
                             <Card.Content style={{height: '200px'}}>
                             <Card.Header>{s.title}</Card.Header>
-                            <Card.Description>{s.logline}</Card.Description>
-                            <Card.Description>{s.synopsis}</Card.Description>
+                            <Card.Description className='logline'>{s.logline}</Card.Description>
+                            <Card.Description className='synopsis'>{s.synopsis}</Card.Description>
                         </Card.Content>
                         </Card>
                     </Link>

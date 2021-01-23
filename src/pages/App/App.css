@@ -51,3 +51,7 @@
 .App a:hover {
   border-bottom: 1px solid rgb(121, 20, 71);
 }
+
+.App a.button:hover {
+  border: none;
+}

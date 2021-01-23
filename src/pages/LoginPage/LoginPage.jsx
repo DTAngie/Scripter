@@ -35,7 +35,7 @@ export default function LoginPage(props){
   //TODO: update labels to form attribute instead of html element
   return (
     <>
-      <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+      <Grid textAlign='center' style={{ height: '85vh', marginTop:'-60px'}} verticalAlign='middle'>
         <Grid.Column width={4}>
           <Header as="h2">Log In</Header>
           <Form autoComplete='off' onSubmit={handleSubmit}>
@@ -64,7 +64,6 @@ export default function LoginPage(props){
           </Form>
         </Grid.Column>
       </Grid>
-      <div>Sign up page</div>
     </>
   )
     

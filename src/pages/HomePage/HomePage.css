@@ -28,3 +28,12 @@
 .HomePage #black-box p {
     font-size: 18px;
 }
+
+.HomePage #featured, .HomePage #cta {
+    width: 100%;
+    padding: 80px 0;
+}
+
+.HomePage #featured .card {
+    height: 100px;
+}

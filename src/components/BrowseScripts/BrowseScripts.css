@@ -5,3 +5,7 @@
 .BrowseScripts .accordion .item {
     margin-left: 1em;
 }
+
+.BrowseScripts a:hover {
+    border: none;
+}

@@ -1,3 +1,17 @@
+.Footer {
+    background: rgb(132, 23, 78);
+    color: #fff;
+    font-weight: bold;
+}
+
 .Footer.ui.grid {
     padding: 10px 10px 0 10px;
+}
+
+.Footer a {
+    color: #fff;
+}
+
+.Footer a:hover {
+    color: #adadad;
 }

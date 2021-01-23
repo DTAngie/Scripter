@@ -4,4 +4,5 @@
 
 .Page-Header {
     z-index: 10;
+    margin-bottom: 60px !important;
 }

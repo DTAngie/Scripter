@@ -1,3 +1,11 @@
 .ScriptList a {
     margin: .875em .5em;
 }
+
+.ScriptList > a > .ui.card >  .content > .description {
+    margin-top: 15px;
+}
+
+.ScriptList .logline {
+    font-style: italic;
+}
