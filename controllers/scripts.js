@@ -5,6 +5,7 @@ module.exports = {
     create,
     index,
     allScripts,
+    getFeatured,
     show,
     update,
     delete: deleteOne
@@ -49,11 +50,19 @@ async function allScripts(req, res) {
     }
 }
 
+async function getFeatured(req, res){
+    try {
+        const scripts = await Script.find({ averageRating: { $ne: null } }).sort({averageRating: 'desc'}).limit(3).select('title logline').exec();
+        res.status(200).json({scripts});
+    } catch (err) {
+        console.log(err);
+    }
+}
+
 async function show(req, res) {
     try {
         const script = await Script.findOne({_id: req.params.id}).populate('author', 'username').exec();
         const avg = await calculateAverageScore(script);
-        console.log('average is', avg);
         script.averageRating = avg;
         script.save();
         res.status(200).json({script});

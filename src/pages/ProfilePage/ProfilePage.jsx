@@ -7,7 +7,7 @@ import BrowseScripts from '../../components/BrowseScripts/BrowseScripts';
 import * as scriptsAPI from '../../utils/scriptService';
 import { useLocation } from 'react-router-dom';
 
-export default function ProfilePage({user, isProfile}){
+export default function ProfilePage({user}){
     const [scripts, setScripts] = useState([]);
     const [isOwner, setOwner] = useState(false);
     const location = useLocation();

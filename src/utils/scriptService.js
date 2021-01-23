@@ -65,3 +65,7 @@ export function deleteOne(id) {
         }
     })
 }
+
+export function getFeatured(){
+    return fetch(`${BASE_URL}/all/featured`).then(res => res.json());
+}
