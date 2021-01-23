@@ -29,14 +29,24 @@ export default function ScriptDetail({isOwner, script, userRating, displayBudget
             <Divider></Divider>
             <p>{script.synopsis}</p>
             <Divider></Divider>
-            <Segment.Group horizontal>
-                <Segment>Medium: {script.mediaType}</Segment>
-                <Segment>Genre: {script.genre}</Segment>
-            </Segment.Group>
-            <Segment.Group horizontal>
-                <Segment>Stage: {script.stage}</Segment>
-                <Segment>Budget: {displayBudget}</Segment>
-            </Segment.Group>
+            <Grid>
+                <Grid.Row columns={2}>
+                    <Grid.Column >
+                    Medium: {script.mediaType}
+                    </Grid.Column>
+                    <Grid.Column>
+                    Genre: {script.genre}
+                    </Grid.Column>
+                </Grid.Row>
+                <Grid.Row columns={2}>
+                    <Grid.Column>
+                    Stage: {script.stage}
+                    </Grid.Column>
+                    <Grid.Column>
+                    Budget: {displayBudget}
+                    </Grid.Column>
+                </Grid.Row>
+            </Grid>
             { isOwner ?
                 <>
                     <Button as={Link} to={`/scripts/${script._id}/edit`} floated='left' content='Edit' labelPosition='left' icon='pencil' />
