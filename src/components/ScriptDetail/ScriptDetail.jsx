@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Segment, Header, Divider, Button, Modal, Grid } from 'semantic-ui-react';
+import { Segment, Header, Divider, Button, Modal, Grid, Label } from 'semantic-ui-react';
 import ScriptRating from '../ScriptRating/ScriptRating';
+import './ScriptDetail.css';
 
 export default function ScriptDetail({isOwner, script, userRating, displayBudget, handleDeleteScript, handleRate}) {
     const averageRatingDisplay = convertScoreToText();
@@ -20,30 +21,31 @@ export default function ScriptDetail({isOwner, script, userRating, displayBudget
     }
 
     return (       
-        <Segment>
+        <Segment className="ScriptDetail">
             <Header>
                 {script.title}
             </Header>
-            <p>{averageRatingDisplay}</p>
-            <p>{script.logline}</p>
+            <p>User Rating: {averageRatingDisplay}</p>
+            <p className='logline'>{script.logline}</p>
             <Divider></Divider>
+            <h3>Synopsis</h3>
             <p>{script.synopsis}</p>
-            <Divider></Divider>
-            <Grid>
+            <Divider style={{marginTop: '40px'}}></Divider>
+            <Grid style={{marginTop: '20px', marginBottom: '60px'}}>
                 <Grid.Row columns={2}>
                     <Grid.Column >
-                    Medium: {script.mediaType}
+                    <Label>Medium</Label> {script.mediaType}
                     </Grid.Column>
                     <Grid.Column>
-                    Genre: {script.genre}
+                    <Label>Genre</Label> {script.genre}
                     </Grid.Column>
                 </Grid.Row>
                 <Grid.Row columns={2}>
                     <Grid.Column>
-                    Stage: {script.stage}
+                    <Label>Stage</Label> {script.stage}
                     </Grid.Column>
                     <Grid.Column>
-                    Budget: {displayBudget}
+                    <Label>Budget</Label> {displayBudget}
                     </Grid.Column>
                 </Grid.Row>
             </Grid>
@@ -66,7 +68,6 @@ export default function ScriptDetail({isOwner, script, userRating, displayBudget
                 </>
                 :
                 <>
-                {/* Rating */}
                 <Grid>
                     <Grid.Column width={8}>
                         <ScriptRating userRating={userRating} handleRate={handleRate} convertScore={convertScoreToText}/>

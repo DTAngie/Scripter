@@ -1,0 +1,13 @@
+.ScriptDetail.ui.segment {
+    padding: 40px 20px;
+}
+
+.ScriptDetail .ui.header {
+    font-size: 24px;
+}
+
+.ScriptDetail .logline {
+    font-style: italic;
+    font-size: 16px;
+    margin-top: 40px;
+}
