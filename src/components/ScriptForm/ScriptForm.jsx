@@ -10,7 +10,9 @@ export default function  NewScriptForm({script, handleAddScript}){
         mediaType: '',
         stage: '',
         budget: '',
+        castIdeas: '',
     });
+    const [poster, setPoster] = useState('');
   
     const genres = [
         { key: '0', text: 'Action', value: 'Action' },
@@ -69,14 +71,22 @@ export default function  NewScriptForm({script, handleAddScript}){
         });
     }
 
-
-
+    function handleFileInput(e){
+        setPoster(e.target.files[0]);
+    }
+ 
     function handleSubmit(e){
         e.preventDefault();
         const scriptID = script._id ? script._id : null;
-        handleAddScript(form, scriptID);
+        const formData = new FormData();
+        if (poster) {
+            formData.append('poster', poster)
+        }
+        for (let field in form) {
+            formData.append(field, form[field]);
+        }
+        handleAddScript(formData, scriptID);
     }
-
 
     
     useEffect(()=> {
@@ -167,6 +177,24 @@ export default function  NewScriptForm({script, handleAddScript}){
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
+                <br></br>
+                <Form.Input
+                    name="castIdeas"
+                    id="cast-ideas"
+                    onChange={handleChange}
+                    value={form.castIdeas}
+                    label="Cast Ideas"
+                    placeholder="Jane Doe, John Smith"
+                />
+                <Form.Input
+                className="form-control"
+                type="file"
+                name="posterURL"
+                id="poster"
+                placeholder="upload image"
+                onChange={handleFileInput}
+                label="Poster"
+              />   
             <Button style={{marginTop: '40px'}}>{ Object.keys(script).length > 0 ? 'Edit Script' : 'Add Script' }</Button>
             </Segment>
         </Form>
@@ -176,3 +204,4 @@ export default function  NewScriptForm({script, handleAddScript}){
 
 // TODO: Add field for cast ideas in text form
 //TODO: Add option to upload one artwork
+// TODO: Add loading icon after form submitted

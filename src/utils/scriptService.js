@@ -5,10 +5,9 @@ const BASE_URL = '/api/scripts';
 export function create(script) {
     return fetch(BASE_URL, {
         method: 'POST',
-        body: JSON.stringify(script),
+        body: script,
         headers: {
             'Authorization': 'Bearer ' + tokenService.getToken(),
-            'Content-Type': 'application/json'
         }
     }).then(res => res.json());
 }
@@ -49,10 +48,9 @@ export function getOne(id) {
 export function update(script, id) {
     return fetch(`${BASE_URL}/${id}`, {
         method: 'PUT',
-        body: JSON.stringify(script),
+        body: script,
         headers: {
-            'Authorization' : 'Bearer ' + tokenService.getToken(),
-            'Content-Type': 'application/json'
+            'Authorization' : 'Bearer ' + tokenService.getToken()
         }
     }).then(res => res.json());
 }

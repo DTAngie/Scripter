@@ -1,6 +1,9 @@
 const Script = require('../models/Script');
 const Rating = require('../models/ratings');
 const User = require('../models/user');
+const { v4: uuidv4 } = require('uuid');
+const S3 = require('aws-sdk/clients/s3');
+const s3 = new S3();
 
 module.exports = {
     create,
@@ -14,23 +17,30 @@ module.exports = {
 
 async function create(req, res) {
     try {
-        const script = await Script.create({...req.body, author: req.user});
+        let uploadedURL = '';
+        if (req.file) {
+            console.log('file exists')
+            const filePath = `${uuidv4()}/${req.file.originalname}`;
+            const params = {Bucket: 'movielib2020', Key: filePath, Body: req.file.buffer};
+            const poster = await s3.upload(params).promise();
+            uploadedURL = poster.Location;
+        }
+        const script = await Script.create({
+            title: req.body.title,
+            synopsis: req.body.synopsis,
+            logline: req.body.logline,
+            genre: req.body.genre,
+            mediaType: req.body.mediaType,
+            stage: req.body.stage,
+            budget: req.body.budget,
+            author: req.user,
+            castIdeas: req.body.castIdeas,
+            posterURL: uploadedURL,
+        });
         res.status(201).json({scriptID: script._id});
     } catch (err){
         console.log(err);
     }
-
-
-    //TODO - below is the template if form ends up taking in images
-    // const filePath = `${uuidv4()}/${req.file.originalname}`
-    // const params = {Bucket: 'collectorcat', Key: filePath, Body: req.file.buffer};
-    // s3.upload(params, async function(err, data){
-    //         // data.Location is the address where our image is stored on aws
-    //     const post = await Post.create({caption: req.body.caption, user: req.user, photoUrl: data.Location});
-    //     const populatedUserPost = await post.populate('user').execPopulate();
-    //     res.status(201).json({post: populatedUserPost})
-    // })
-
 }
 
 async function index(req, res) {
@@ -77,11 +87,14 @@ async function show(req, res) {
     async function calculateAverageScore(scriptID){
         try {
             const ratings = await Rating.find({script: scriptID});
-            let sumTotal = 0;
-            ratings.forEach(function(rating) {
-                sumTotal += rating.score;
-            })
-            return Math.round(sumTotal/ratings.length);
+            if (ratings.length > 0) {
+                let sumTotal = 0;
+                ratings.forEach(function(rating) {
+                    sumTotal += rating.score;
+                })
+                return Math.round(sumTotal/ratings.length);
+            }
+            return 0;
         } catch(err) {
             console.log(err);
             return null;
@@ -91,10 +104,29 @@ async function show(req, res) {
 
 async function update(req, res) {
     try {
-        await Script.updateOne({_id: req.params.id}, {...req.body});
+        const script = await Script.findOne({_id: req.params.id});
+        let uploadedURL = script.posterURL;
+        if (req.file) {
+            console.log('file exists')
+            const filePath = `${uuidv4()}/${req.file.originalname}`;
+            const params = {Bucket: 'movielib2020', Key: filePath, Body: req.file.buffer};
+            const poster = await s3.upload(params).promise();
+            uploadedURL = poster.Location;
+        }
+        const updatedScript = await Script.updateOne({_id: req.params.id},{
+            title: req.body.title,
+            synopsis: req.body.synopsis,
+            logline: req.body.logline,
+            genre: req.body.genre,
+            mediaType: req.body.mediaType,
+            stage: req.body.stage,
+            budget: req.body.budget,
+            author: req.user,
+            castIdeas: req.body.castIdeas,
+            posterURL: uploadedURL,
+        });
         res.status(200).json({scriptID: req.params.id});
-
-    } catch (err) {
+    } catch (err){
         console.log(err);
     }
 }

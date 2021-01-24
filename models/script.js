@@ -63,10 +63,13 @@ const scriptSchema = new Schema({
         ref: 'User',
         required: true,
     },
-    averageRating: Number
+    averageRating: Number,
+    castIdeas: String,
+    posterURL: String,
 }, {
     timestamps: true
 });
+// TODO: Implement functionality for castIdeas, and poster
 
 module.exports = mongoose.model('Script', scriptSchema);
 
