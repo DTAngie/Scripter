@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Modal, Button } from 'semantic-ui-react';
 
 export default function DeleteConfirmModal({handleDeleteScript, scriptID }){

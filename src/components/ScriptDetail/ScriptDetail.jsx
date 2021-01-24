@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Segment, Header, Divider, Button, Modal, Grid, Label } from 'semantic-ui-react';
+import { Segment, Header, Divider, Button, Grid, Label } from 'semantic-ui-react';
 import DeleteConfirmModal from '../DeleteConfirmModal/DeleteConfirmModal';
 import ScriptRating from '../ScriptRating/ScriptRating';
 import './ScriptDetail.css';

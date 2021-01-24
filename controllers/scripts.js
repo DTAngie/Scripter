@@ -1,5 +1,6 @@
 const Script = require('../models/Script');
 const Rating = require('../models/ratings');
+const User = require('../models/user');
 
 module.exports = {
     create,
@@ -44,7 +45,9 @@ async function index(req, res) {
 async function allScripts(req, res) {
     try {
         const scripts = await Script.find(req.query).limit(15).populate('author').exec();
-        res.status(200).json({scripts});
+        const author = req.query.author ? await User.findOne({_id: req.query.author}) : null;
+        const username = author ? author.username : null;
+        res.status(200).json({scripts: scripts, author: username});
     } catch(err) {
         console.log(err);
     }

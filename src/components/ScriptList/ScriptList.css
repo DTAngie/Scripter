@@ -1,9 +1,14 @@
 .ScriptList.ui.cards {
     margin-bottom: 40px;
+    min-height: 60vh;
 }
 
 .ScriptList a {
     margin: .875em .5em;
+}
+
+.ScriptList a:hover {
+    border: none;
 }
 
 .ScriptList > a > .ui.card >  .content > .description {

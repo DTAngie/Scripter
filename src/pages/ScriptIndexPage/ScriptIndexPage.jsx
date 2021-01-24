@@ -49,7 +49,7 @@ export default function ScriptIndexPage(){
                 </Grid.Column>
                 <Grid.Column width={8}>
                     <Header style={{marginBottom: '40px'}}>{searchHeader}</Header>
-                <ScriptList scripts={scripts}/>
+                    <ScriptList scripts={scripts}/>
                 </Grid.Column>
                 <Grid.Column width={4}>
                     <BrowseScripts />
