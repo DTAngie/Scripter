@@ -1,3 +1,7 @@
+.ScriptList.ui.cards {
+    margin-bottom: 40px;
+}
+
 .ScriptList a {
     margin: .875em .5em;
 }

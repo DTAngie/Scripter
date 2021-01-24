@@ -63,7 +63,6 @@ export default function ScriptFormPage({formType}){
                     <ScriptForm script={script} handleAddScript={handleAddScript}/>
                 </Grid.Column>
                 <Grid.Column width={4}>
-                    Side Content
                 </Grid.Column>
             </Grid>
             

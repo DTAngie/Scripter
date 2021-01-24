@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Form, Segment } from 'semantic-ui-react';
+import { Button, Form, Segment, Header, Grid } from 'semantic-ui-react';
 
 export default function  NewScriptForm({script, handleAddScript}){
     const [form, setForm] = useState({
@@ -94,15 +94,15 @@ export default function  NewScriptForm({script, handleAddScript}){
         preFillForm();
     }, [script])
 
-//TODO: this redirect doesn't take you to the correct detail page.
     return (
+        <>
+        <Header style={{fontSize: '24px'}}>{ Object.keys(script).length > 0 ? 'Edit Script' : 'Add Script' }</Header>
         <Form autoComplete='off' onSubmit={handleSubmit}>
-            <Segment>
+            <Segment style={{padding: '40px 30px'}}>
                 <Form.Input
                     name="title"
                     id="title"
                     onChange={handleChange}
-                    placeholder="title"
                     value={form.title}
                     label="Title"
                     required
@@ -111,52 +111,68 @@ export default function  NewScriptForm({script, handleAddScript}){
                     name="logline"
                     id="logline"
                     onChange={handleChange}
-                    placeholder="logline"
                     value={form.logline}
                     label="Logline"
                 />
-                <Form.Input
+                <Form.TextArea
                     name="synopsis"
                     id="synopsis"
                     onChange={handleChange}
-                    placeholder="synopsis"
                     value={form.synopsis}
                     label="Synopsis"
                 />
-                <Form.Select
-                    name="genre"
-                    id="genre"
-                    options={genres}
-                    onChange={handleChange}
-                    value={form.genre}
-                    label="Genre"                
-                />
-                <Form.Select
-                    name="mediaType"
-                    id="mediaType"
-                    options={mediaTypes}
-                    onChange={handleChange}
-                    value={form.mediaType}
-                    label="Medium"
-                />
-                <Form.Select
-                    name="stage"
-                    id="stage"
-                    options={stages}
-                    onChange={handleChange}
-                    value={form.stage}
-                    label="Script Stage"
-                />
-                <Form.Select
-                    name="budget"
-                    id="budget"
-                    options={budgets}
-                    onChange={handleChange}
-                    value={form.budget}
-                    label="Estimated Budget"
-                />  
-            <Button>{ Object.keys(script).length > 0 ? 'Edit Script' : 'Add Script' }</Button>
+                <Grid columns='equal'>
+                    <Grid.Row>
+                        <Grid.Column>
+                            <Form.Select
+                                name="genre"
+                                id="genre"
+                                options={genres}
+                                onChange={handleChange}
+                                value={form.genre}
+                                label="Genre"                
+                            />
+                        </Grid.Column>
+                        <Grid.Column>
+                            <Form.Select
+                                name="mediaType"
+                                id="mediaType"
+                                options={mediaTypes}
+                                onChange={handleChange}
+                                value={form.mediaType}
+                                label="Medium"
+                            />
+                        </Grid.Column>
+                    </Grid.Row>
+                    <Grid.Row>
+                        <Grid.Column>
+                            <Form.Select
+                                name="stage"
+                                id="stage"
+                                options={stages}
+                                onChange={handleChange}
+                                value={form.stage}
+                                label="Script Stage"
+                            />
+                        </Grid.Column>
+                        <Grid.Column>
+                            <Form.Select
+                                name="budget"
+                                id="budget"
+                                options={budgets}
+                                onChange={handleChange}
+                                value={form.budget}
+                                label="Estimated Budget"
+                            />  
+                        </Grid.Column>
+                    </Grid.Row>
+                </Grid>
+            <Button style={{marginTop: '40px'}}>{ Object.keys(script).length > 0 ? 'Edit Script' : 'Add Script' }</Button>
             </Segment>
         </Form>
+        </>
     );
 }
+
+// TODO: Add field for cast ideas in text form
+//TODO: Add option to upload one artwork

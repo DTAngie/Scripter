@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Segment, Header, Divider, Button, Modal, Grid, Label } from 'semantic-ui-react';
+import DeleteConfirmModal from '../DeleteConfirmModal/DeleteConfirmModal';
 import ScriptRating from '../ScriptRating/ScriptRating';
 import './ScriptDetail.css';
 
@@ -52,7 +53,8 @@ export default function ScriptDetail({isOwner, script, userRating, displayBudget
             { isOwner ?
                 <>
                     <Button as={Link} to={`/scripts/${script._id}/edit`} floated='left' content='Edit' labelPosition='left' icon='pencil' />
-                    <Modal 
+                    <DeleteConfirmModal handleDeleteScript={handleDeleteScript} scriptID={script._id} />
+                    {/* <Modal 
                         trigger= {
                             <Button color='red' floated='right' content='Delete' labelPosition='left' icon='delete' />
                         }
@@ -63,7 +65,7 @@ export default function ScriptDetail({isOwner, script, userRating, displayBudget
                             <Button>No</Button>
                             <Button color='red' onClick={()=> handleDeleteScript(script._id)}>Yes, Delete</Button>
                         </Modal.Actions>
-                    </Modal>
+                    </Modal> */}
                     <div style={{clear:"both"}}></div>
                 </>
                 :

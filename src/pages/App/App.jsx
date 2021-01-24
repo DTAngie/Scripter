@@ -39,9 +39,6 @@ function App() {
           <Route exact path="/">
               <HomePage user={user} handleLogout={handleLogout}/>
           </Route>
-          <Route path="/scripts/all">
-            <ScriptIndexPage /> 
-          </Route>
           {/* Pages that require login */}
           {userService.getUser() ?
             
@@ -49,6 +46,9 @@ function App() {
               <Route path="/dashboard">
               {/* TODO: Maybe rename dashboard page to profile page? for reusability? */}
                 <ProfilePage user={user} isProfile={true} />
+              </Route>
+              <Route path="/scripts/all">
+                <ScriptIndexPage /> 
               </Route>
               <Route exact path='/scripts/new'>
                 <ScriptFormPage />
