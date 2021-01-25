@@ -9,7 +9,6 @@ router.get('/all', scriptsCtrl.allScripts);
 router.get('/', scriptsCtrl.index);
 router.get('/all/featured', scriptsCtrl.getFeatured);
 router.get('/:id', scriptsCtrl.show);
-//TODO: update control flow for the edit function as well
 router.put('/:id', upload.single('poster'), scriptsCtrl.update);
 router.delete('/:id', scriptsCtrl.delete);
 

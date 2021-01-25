@@ -202,6 +202,5 @@ export default function  NewScriptForm({script, handleAddScript}){
     );
 }
 
-// TODO: Add field for cast ideas in text form
-//TODO: Add option to upload one artwork
+// TODO: TEST this! Add field for cast ideas in text form
 // TODO: Add loading icon after form submitted

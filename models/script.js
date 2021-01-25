@@ -69,7 +69,6 @@ const scriptSchema = new Schema({
 }, {
     timestamps: true
 });
-// TODO: Implement functionality for castIdeas, and poster
 
 module.exports = mongoose.model('Script', scriptSchema);
 

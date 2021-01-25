@@ -36,7 +36,6 @@ export default function ScriptDetailPage({user}){
         }
     }
     //TODO: Make sure you can't vote on your own script
-    // TODO: Add little popups that label each star if possible
     async function handleRating(rating){
         if(userRating) {
             try{

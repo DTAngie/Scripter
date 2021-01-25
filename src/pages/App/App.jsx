@@ -24,7 +24,6 @@ function App() {
     userService.logout();
     setUser(null);
   }
-  //TODO Create sign up link on front page when designing it
 
   return (
     <div className="App">
@@ -44,7 +43,6 @@ function App() {
             
             <Switch>
               <Route path="/dashboard">
-              {/* TODO: Maybe rename dashboard page to profile page? for reusability? */}
                 <ProfilePage user={user} isProfile={true} />
               </Route>
               <Route path="/scripts/all">
