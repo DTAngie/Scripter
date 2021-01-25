@@ -11,6 +11,7 @@ module.exports = {
     allScripts,
     getFeatured,
     show,
+    edit,
     update,
     delete: deleteOne
 }
@@ -102,12 +103,24 @@ async function show(req, res) {
     }
 }
 
+async function edit(req, res) {
+    try {
+        const script = await Script.findOne({_id: req.params.id}).populate('author', 'username').exec();
+        if (script.author._id.toString() !== req.user._id.toString()){
+            res.status(404).json({404:'Bad Request'});
+        } else {
+            res.status(200).json({script});
+        }
+    } catch (err) {
+        console.log(err);
+    }
+}
+
 async function update(req, res) {
     try {
         const script = await Script.findOne({_id: req.params.id});
         let uploadedURL = script.posterURL;
         if (req.file) {
-            console.log('file exists')
             const filePath = `${uuidv4()}/${req.file.originalname}`;
             const params = {Bucket: 'movielib2020', Key: filePath, Body: req.file.buffer};
             const poster = await s3.upload(params).promise();

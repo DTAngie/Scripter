@@ -38,12 +38,14 @@ export default function ScriptFormPage({formType}){
                 //If it's an edit page, get the script info
                 try {
                     const scriptID = params.id;
-                    //TODO change this to a different function that checks owner
-                    // BEFORE sending
-                    const data = await ScriptAPI.getOne(scriptID);
-                    setScript({...data.script});
+                    const data = await ScriptAPI.getOneForEdit(scriptID);
+                    if (data['404']){
+                        history.push('/dashboard');
+                    } else {
+                        setScript({...data.script});
+                    }
                 } catch (err){
-
+                    console.log(err)
                 }
             } else {
                 setScript({});

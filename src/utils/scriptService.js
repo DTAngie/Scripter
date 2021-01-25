@@ -45,6 +45,14 @@ export function getOne(id) {
     }).then(res => res.json());
 }
 
+export function getOneForEdit(id) {
+    return fetch(`${BASE_URL}/${id}/edit`, {
+        headers: {
+            'Authorization': 'Bearer ' + tokenService.getToken()
+        }
+    }).then(res => res.json());
+}
+
 export function update(script, id) {
     return fetch(`${BASE_URL}/${id}`, {
         method: 'PUT',

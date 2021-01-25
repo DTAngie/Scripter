@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Segment, Image, Header, Divider, Button, Grid, Label } from 'semantic-ui-react';
+import { Segment, Image, Header, Divider, Button, Grid, Label, Loader } from 'semantic-ui-react';
 import DeleteConfirmModal from '../DeleteConfirmModal/DeleteConfirmModal';
 import ScriptRating from '../ScriptRating/ScriptRating';
 import './ScriptDetail.css';
@@ -22,7 +22,7 @@ export default function ScriptDetail({isOwner, script, userRating, displayBudget
         }
     }
 
-    return (       
+    return (     
         <Segment className="ScriptDetail">
             <Image src={script.posterURL ? script.posterURL : DefaultImage} size="small" floated="left"/>
             <Header>
@@ -49,6 +49,14 @@ export default function ScriptDetail({isOwner, script, userRating, displayBudget
                     </Grid.Column>
                     <Grid.Column>
                     <Label>Budget</Label> {displayBudget}
+                    </Grid.Column>
+                </Grid.Row>
+                <Grid.Row columns={2} className="cast">
+                    <Grid.Column width={5} >
+                        <h4>Cast Ideas</h4>
+                    </Grid.Column>
+                    <Grid.Column width={11}>
+                        <p>{script.castIdeas}</p>
                     </Grid.Column>
                 </Grid.Row>
             </Grid>

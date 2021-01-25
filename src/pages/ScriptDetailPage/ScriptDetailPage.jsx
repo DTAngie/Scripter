@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useHistory, useParams } from 'react-router-dom';
-import { Grid } from 'semantic-ui-react';
+import { Grid, Loader } from 'semantic-ui-react';
 import BrowseScripts from '../../components/BrowseScripts/BrowseScripts';
 import LeftNavigation from '../../components/LeftNavigation/LeftNavigation';
 import ScriptDetail from '../../components/ScriptDetail/ScriptDetail';
@@ -12,6 +12,7 @@ export default function ScriptDetailPage({user}){
     const [userRating, setRating] = useState({});
     const [displayBudget, setDisplayBudget] = useState('');
     const [isOwner, setOwner] = useState(false);
+    const [isLoading, setIsLoading] =  useState(true);
     const params = useParams();
 
     const budgets = {
@@ -35,7 +36,7 @@ export default function ScriptDetailPage({user}){
             console.log(err);
         }
     }
-    //TODO: Make sure you can't vote on your own script
+    
     async function handleRating(rating){
         if(userRating) {
             try{
@@ -50,11 +51,8 @@ export default function ScriptDetailPage({user}){
         }
     }
     
-
-
+    
  
-
-
     useEffect(() => {
         async function getScript(){
             const scriptID = params.id;
@@ -67,29 +65,39 @@ export default function ScriptDetailPage({user}){
         }
         getScript();
     }, [location, params.id]);
-
+    
     useEffect(()=> {
         function getBudget(){
             setDisplayBudget(budgets[script.budget]);
         }
-
+        
         //This gets user's specific rating for said script
         async function getRatings() {
             if(Object.keys(script).length > 0) {
                 const data = await ratingAPI.getOne(script._id, user._id);
                 setRating(data.rating);
-    
+                
             }
         }
-
+        
         function checkOwner(){
             if(script.author) {
                 setOwner((user._id.toString() === script.author._id.toString()) ? true: false);
             }
         }
+
+        function updateStatus(){
+            if(Object.keys(script).length > 0) {
+                setIsLoading(false);
+            } else {
+                setIsLoading(true);
+            }
+        }
+
         getBudget();
         getRatings();
         checkOwner();
+        updateStatus();
     }, [script, budgets, user._id]);
 
 
@@ -111,9 +119,9 @@ export default function ScriptDetailPage({user}){
                         handleRate={handleRating}
                     />
                     :
-                    <p>Loading</p>
-                    //TODO: Add in a loading icon. Use this ternary on other pages as well.     
+                    ''
                 }
+                <Loader active={isLoading}>Loading...</Loader>
                 </Grid.Column>
                 <Grid.Column width={4}>
                     <BrowseScripts />

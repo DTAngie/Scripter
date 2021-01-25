@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Form, Segment, Header, Grid } from 'semantic-ui-react';
+import { Button, Form, Segment, Header, Grid, Loader } from 'semantic-ui-react';
 
 export default function  NewScriptForm({script, handleAddScript}){
     const [form, setForm] = useState({
@@ -13,6 +13,7 @@ export default function  NewScriptForm({script, handleAddScript}){
         castIdeas: '',
     });
     const [poster, setPoster] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
   
     const genres = [
         { key: '0', text: 'Action', value: 'Action' },
@@ -77,6 +78,7 @@ export default function  NewScriptForm({script, handleAddScript}){
  
     function handleSubmit(e){
         e.preventDefault();
+        setIsLoading(true);
         const scriptID = script._id ? script._id : null;
         const formData = new FormData();
         if (poster) {
@@ -99,6 +101,7 @@ export default function  NewScriptForm({script, handleAddScript}){
                 mediaType: script.mediaType ? script.mediaType : '',
                 stage: script.stage ? script.stage : '',
                 budget: script.budget ? script.budget.toString() : '',
+                castIdeas: script.castIdeas ? script.castIdeas : '',
             });
         }
         preFillForm();
@@ -187,20 +190,18 @@ export default function  NewScriptForm({script, handleAddScript}){
                     placeholder="Jane Doe, John Smith"
                 />
                 <Form.Input
-                className="form-control"
-                type="file"
-                name="posterURL"
-                id="poster"
-                placeholder="upload image"
-                onChange={handleFileInput}
-                label="Poster"
-              />   
-            <Button style={{marginTop: '40px'}}>{ Object.keys(script).length > 0 ? 'Edit Script' : 'Add Script' }</Button>
+                    className="form-control"
+                    type="file"
+                    name="posterURL"
+                    id="poster"
+                    placeholder="upload image"
+                    onChange={handleFileInput}
+                    label="Poster"
+                />
+                <Loader active={isLoading} inline="centered">Please Wait...</Loader>
+                <Button style={{marginTop: '40px'}}>{ Object.keys(script).length > 0 ? 'Edit Script' : 'Add Script'}</Button>
             </Segment>
         </Form>
         </>
     );
 }
-
-// TODO: TEST this! Add field for cast ideas in text form
-// TODO: Add loading icon after form submitted

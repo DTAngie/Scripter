@@ -39,48 +39,47 @@ export default function SignUpPage(props){
       setError(err.message);
     }
   }
-//TODO: update labels to form attribute instead of html element
+
   return (
-    <>
       <Grid textAlign='center' style={{ height: '85vh', marginTop:'-60px'}} verticalAlign='middle'>
         <Grid.Column width={4}>
           <Header as="h2">Sign up</Header>
           <Form autoComplete='off' onSubmit={handleSubmit}>
             <Segment>
-              <label htmlFor="username">Username</label>
               <Form.Input
                 id="username"
                 name="username"
                 placeholder="username"
+                label="Username"
                 value={form.username}
                 onChange={handleChange}
                 required
               />
-              <label htmlFor="email">Email</label>
               <Form.Input
                 id="email"
                 name="email"
                 placeholder="email"
+                label="E-mail"
                 value={form.email}
                 onChange={handleChange}
                 type="email"
                 required
               />
-              <label htmlFor="password">Password</label>
               <Form.Input
                 id="password"
                 name="password"
                 placeholder="password"
+                label="Password"
                 value={form.password}
                 onChange={handleChange}
                 type="password"
                 required
               />
-              <label htmlFor="passwordConf">Enter Password Again</label>
               <Form.Input
                 id="passwordConf"
                 name="passwordConf"
                 placeholder="password"
+                label="Enter Password Again"
                 value={form.passwordConf}
                 onChange={handleChange}
                 type="password"
@@ -91,6 +90,5 @@ export default function SignUpPage(props){
           </Form>
         </Grid.Column>
       </Grid>
-    </>
   );
 }

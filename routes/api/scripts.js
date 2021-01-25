@@ -9,6 +9,7 @@ router.get('/all', scriptsCtrl.allScripts);
 router.get('/', scriptsCtrl.index);
 router.get('/all/featured', scriptsCtrl.getFeatured);
 router.get('/:id', scriptsCtrl.show);
+router.get('/:id/edit', scriptsCtrl.edit);
 router.put('/:id', upload.single('poster'), scriptsCtrl.update);
 router.delete('/:id', scriptsCtrl.delete);
 
