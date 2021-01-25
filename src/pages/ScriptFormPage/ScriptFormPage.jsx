@@ -20,9 +20,6 @@ export default function ScriptFormPage({formType}){
         } else  {
             try {
                 const newScript = await ScriptAPI.create(data);
-                //TODO:: Does response have to be whole object or just id?
-                //If API is being called again, maybe streamline this one
-                //Same for the edit function above
                 history.push(`/scripts/${newScript.scriptID}`);
             } catch (err) {
                 console.log(err);

@@ -20,7 +20,6 @@ async function create(req, res) {
     try {
         let uploadedURL = '';
         if (req.file) {
-            console.log('file exists')
             const filePath = `${uuidv4()}/${req.file.originalname}`;
             const params = {Bucket: 'movielib2020', Key: filePath, Body: req.file.buffer};
             const poster = await s3.upload(params).promise();

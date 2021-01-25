@@ -56,7 +56,7 @@ export default function ProfilePage({user}){
                     <LeftNavigation />
                 </Grid.Column>
                 <Grid.Column width={8}>
-                    <Header style={{marginBottom: '40px'}}>{author ? author : ''}</Header>
+                    <Header style={{marginBottom: '40px', textAlign: 'left'}}>{author ? author : ''}'s Scripts</Header>
                     {scripts.length > 0 ?
                     <ScriptList scripts={scripts}/>
                     :
