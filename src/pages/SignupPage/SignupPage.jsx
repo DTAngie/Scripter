@@ -1,6 +1,6 @@
 import React, {useState } from 'react';
 import './SignupPage.css';
-import ErrorMessage from '../../components/ErrorMessage/ErrorMessage'
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import userService from '../../utils/userService';
 import { Grid, Header, Form, Button, Segment } from 'semantic-ui-react';
 import { useHistory } from 'react-router-dom';
@@ -12,7 +12,7 @@ export default function SignUpPage(props){
     password: '',
     passwordConf: ''
   });
-  const [invalidForm, setInvalidForm] = useState(false);
+  const [invalidForm, setInvalidForm] = useState(true);
   const [error, setError] = useState('');
   const history = useHistory();
 
@@ -21,6 +21,11 @@ export default function SignUpPage(props){
       ...form,
       [e.target.name]: e.target.value
     });
+    if (form.username && form.password && form.passwordConf && form.email){
+      setInvalidForm(false)
+    } else {
+      setInvalidForm(true);
+    }
   }
 
   async function handleSubmit(e) {
@@ -44,6 +49,7 @@ export default function SignUpPage(props){
       <Grid textAlign='center' style={{ height: '85vh', marginTop:'-60px'}} verticalAlign='middle'>
         <Grid.Column width={4}>
           <Header as="h2">Sign up</Header>
+          <ErrorMessage error={error} />
           <Form autoComplete='off' onSubmit={handleSubmit}>
             <Segment>
               <Form.Input

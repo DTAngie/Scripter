@@ -50,7 +50,7 @@ export default function ScriptFormPage(){
             
         }
         getScript();
-    }, [location, params.id]);
+    }, [location, params.id, history]);
 
     return (
         <>

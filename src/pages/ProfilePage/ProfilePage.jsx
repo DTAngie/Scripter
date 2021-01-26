@@ -47,7 +47,7 @@ export default function ProfilePage({user}){
             }
         }
         getScripts();
-    }, [isOwner, authorID]);
+    }, [isOwner, authorID, user.username]);
 
     return (
         <>

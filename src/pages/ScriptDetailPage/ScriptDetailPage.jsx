@@ -4,6 +4,7 @@ import { Grid, Loader } from 'semantic-ui-react';
 import BrowseScripts from '../../components/BrowseScripts/BrowseScripts';
 import LeftNavigation from '../../components/LeftNavigation/LeftNavigation';
 import ScriptDetail from '../../components/ScriptDetail/ScriptDetail';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import * as scriptAPI from '../../utils/scriptService';
 import * as ratingAPI from '../../utils/ratingsService';
 
@@ -13,6 +14,7 @@ export default function ScriptDetailPage({user}){
     const [displayBudget, setDisplayBudget] = useState('');
     const [isOwner, setOwner] = useState(false);
     const [isLoading, setIsLoading] =  useState(true);
+    const [error, setError] = useState('');
     const params = useParams();
 
     const budgets = {
@@ -38,16 +40,25 @@ export default function ScriptDetailPage({user}){
     }
 
     async function handleRating(rating){
+        setError('');
         if(userRating) {
             try{
                 const updatedRating = await ratingAPI.update(rating, userRating._id);
-                setRating(updatedRating.rating);
+                if (updatedRating['404']){
+                    setError('Something went wrong. Please try again.');
+                } else {
+                    setRating(updatedRating.rating);
+                }
             } catch (err) {
-                console.log(err);
+                setError('Something went wrong. Please try again.');
             }
         } else {
             const newRating = await ratingAPI.create(rating, script._id);
-            setRating(newRating.rating);
+            if (newRating['404']){
+                setError('Something went wrong. Please try again.');
+            } else {
+                setRating(newRating.rating);
+            }
         }
     }
     
@@ -73,9 +84,14 @@ export default function ScriptDetailPage({user}){
         
         //This gets user's specific rating for said script
         async function getRatings() {
+            setError('');
             if(Object.keys(script).length > 0) {
                 const data = await ratingAPI.getOne(script._id, user._id);
-                setRating(data.rating);
+                if (data['404']){
+                    setError('Something went wrong. Please try again.');
+                } else {
+                    setRating(data.rating);
+                }
                 
             }
         }
@@ -113,6 +129,7 @@ export default function ScriptDetailPage({user}){
                     />
                 </Grid.Column>
                 <Grid.Column width={8}>
+                <ErrorMessage error={error} />
                 {Object.keys(script).length > 0 ?
                     <ScriptDetail
                         isOwner={isOwner}

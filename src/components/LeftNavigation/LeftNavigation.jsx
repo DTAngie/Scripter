@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Header, Divider } from 'semantic-ui-react';
 import './LeftNavigation.css';

@@ -12,7 +12,7 @@ async function create(req, res) {
         const rating = await Rating.create({score: req.body.rating, rater: req.user, script: req.body.script});
         res.status(201).json({rating: rating});
     } catch (err) {
-        console.log(err);
+        res.status(404).json({404:'Bad Request'});
     }
 }
 
@@ -25,7 +25,7 @@ async function show(req, res) {
             res.status(200).json({rating: null});
         }
     } catch (err) {
-        console.log(err);
+        res.status(404).json({404:'Bad Request'});
     }
 }
 
@@ -36,6 +36,6 @@ async function update(req, res) {
         rating.save();
         res.status(200).json({rating: rating});
     } catch (err) {
-        console.log(err);
+        res.status(404).json({404:'Bad Request'});
     }
 }
