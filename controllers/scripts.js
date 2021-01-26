@@ -115,7 +115,6 @@ async function edit(req, res) {
 }
 
 async function update(req, res) {
-    console.log('inside the update function')
     try {
         const script = await Script.findOne({_id: req.params.id});
         let uploadedURL = script.posterURL;
@@ -123,10 +122,8 @@ async function update(req, res) {
             const filePath = `${uuidv4()}/${req.file.originalname}`;
             const params = {Bucket: 'movielib2020', Key: filePath, Body: req.file.buffer};
             const poster = await s3.upload(params).promise();
-            console.log(poster);
             uploadedURL = poster.Location;
         }
-        console.log(req.file);
         const updatedScript = await Script.updateOne({_id: req.params.id},{
             title: req.body.title,
             synopsis: req.body.synopsis,
@@ -141,8 +138,7 @@ async function update(req, res) {
         });
         res.status(200).json({scriptID: req.params.id});
     } catch (err){
-        // res.status(404).json({404:'Bad Request'});
-        res.status(404).json({404: err});
+        res.status(404).json({404:'Bad Request'});
     }
 }
 
