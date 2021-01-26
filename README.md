@@ -25,8 +25,7 @@ Idea Generator
 ## Try it out:
 Links to come
 [Trello board](https://trello.com/b/HHUExaPJ/scripter)
-
-A link to the deployed app (Heroku)
+[Heroku](https://scripterapp.herokuapp.com/)
 
 
 ## Icebox:
