@@ -89,7 +89,8 @@ export default function ScriptDetailPage({user}){
     
     useEffect(()=> {
         function getBudget(){
-            setDisplayBudget(budgets[script.budget]);
+            const display = budgets[script.budget];
+            setDisplayBudget(display);
         }
         
         //This gets user's specific rating for said script
@@ -123,7 +124,7 @@ export default function ScriptDetailPage({user}){
         getRatings();
         checkOwner();
         updateStatus();
-    }, [script, budgets, user._id]);
+    }, [script, user._id, budgets]);
 
 
 

@@ -102,6 +102,7 @@ async function show(req, res) {
 }
 
 async function edit(req, res) {
+    console.log('in the edit function');
     try {
         const script = await Script.findOne({_id: req.params.id}).populate('author', 'username').exec();
         if (script.author._id.toString() !== req.user._id.toString()){
