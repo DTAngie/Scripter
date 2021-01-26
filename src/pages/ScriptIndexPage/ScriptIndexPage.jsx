@@ -6,7 +6,7 @@ import ScriptList from '../../components/ScriptList/ScriptList';
 import LeftNavigation from '../../components/LeftNavigation/LeftNavigation';
 import * as scriptsAPI from '../../utils/scriptService';
 
-export default function ScriptIndexPage(){
+export default function ScriptIndexPage({user}){
     const [scripts, setScripts] = useState([]);
     const location = useLocation();
     const [searchHeader, setSearchHeader] = useState();
@@ -45,7 +45,7 @@ export default function ScriptIndexPage(){
         <>
             <Grid>
                 <Grid.Column width={4}>
-                    <LeftNavigation />
+                    <LeftNavigation ownerIndex={null}/>
                 </Grid.Column>
                 <Grid.Column width={8}>
                     <Header style={{marginBottom: '40px'}}>{searchHeader}</Header>

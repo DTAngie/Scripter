@@ -5,7 +5,7 @@ import LeftNavigation from '../../components/LeftNavigation/LeftNavigation';
 import ScriptForm from '../../components/ScriptForm/ScriptForm';
 import * as ScriptAPI from '../../utils/scriptService.js';
 
-export default function ScriptFormPage({formType}){
+export default function ScriptFormPage(){
     const [script, setScript] = useState({})
     const history = useHistory();
     const location = useLocation();
@@ -56,7 +56,7 @@ export default function ScriptFormPage({formType}){
         <>
             <Grid>
                 <Grid.Column width={4}>
-                    <LeftNavigation />
+                    <LeftNavigation ownerIndex={null}/>
                 </Grid.Column>
                 <Grid.Column width={8}>
                     <ScriptForm script={script} handleAddScript={handleAddScript}/>

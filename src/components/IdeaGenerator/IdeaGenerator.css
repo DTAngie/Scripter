@@ -1,0 +1,23 @@
+.IdeaGenerator.ui.segment {
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.IdeaGenerator #idea-grid {
+    margin-bottom: 40px;
+}
+
+.IdeaGenerator .meets {
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.IdeaGenerator.ui.segment .idea .ui.header {
+    margin-bottom: 10px;
+    min-height: 60px;
+}
+
+.IdeaGenerator .ui.button:focus {
+    background-color: rgb(132, 23, 78);
+    color:#fff;
+}

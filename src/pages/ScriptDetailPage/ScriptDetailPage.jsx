@@ -36,7 +36,7 @@ export default function ScriptDetailPage({user}){
             console.log(err);
         }
     }
-    
+
     async function handleRating(rating){
         if(userRating) {
             try{
@@ -106,7 +106,11 @@ export default function ScriptDetailPage({user}){
         <>
             <Grid>
                 <Grid.Column width={4}>
-                    <LeftNavigation ownerIndex={script.author}/>
+                    <LeftNavigation
+                        ownerIndex={script.author ? script.author._id: ''}
+                        ownerName={script.author ? script.author.username: ''}
+                        user={user._id}
+                    />
                 </Grid.Column>
                 <Grid.Column width={8}>
                 {Object.keys(script).length > 0 ?

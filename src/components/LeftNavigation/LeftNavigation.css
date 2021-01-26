@@ -1,5 +1,6 @@
 .LeftNavigation a {
     display: block;
+    margin-bottom: 10px;
 }
 
 .LeftNavigation a:hover{

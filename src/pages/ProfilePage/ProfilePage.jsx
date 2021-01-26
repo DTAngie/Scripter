@@ -53,7 +53,7 @@ export default function ProfilePage({user}){
         <>
             <Grid>
                 <Grid.Column width={4}>
-                    <LeftNavigation />
+                    <LeftNavigation ownerIndex={null} />
                 </Grid.Column>
                 <Grid.Column width={8}>
                     <Header style={{marginBottom: '40px', textAlign: 'left'}}>{author ? author : ''}'s Scripts</Header>

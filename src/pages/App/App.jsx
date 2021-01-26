@@ -11,6 +11,7 @@ import ScriptIndexPage from '../ScriptIndexPage/ScriptIndexPage';
 import ProfilePage from '../ProfilePage/ProfilePage';
 import ScriptDetailPage from '../ScriptDetailPage/ScriptDetailPage';
 import ScriptFormPage from '../ScriptFormPage/ScriptFormPage';
+import IdeaGeneratorPage from '../IdeaGeneratorPage/IdeaGeneratorPage';
 
 
 function App() {
@@ -46,7 +47,7 @@ function App() {
                 <ProfilePage user={user} isProfile={true} />
               </Route>
               <Route path="/scripts/all">
-                <ScriptIndexPage /> 
+                <ScriptIndexPage user={user}/> 
               </Route>
               <Route exact path='/scripts/new'>
                 <ScriptFormPage />
@@ -60,7 +61,9 @@ function App() {
               <Route exact path='/author/:id'>
                 <ProfilePage user={user} isProfile={false} />
               </Route>
-
+              <Route exact path='/script/ideas'>
+                <IdeaGeneratorPage />
+              </Route>
             </Switch>
 
             :

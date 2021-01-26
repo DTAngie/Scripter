@@ -75,3 +75,12 @@ export function deleteOne(id) {
 export function getFeatured(){
     return fetch(`${BASE_URL}/all/featured`).then(res => res.json());
 }
+
+//OMDB API
+export function getIdeas(query){
+    return fetch(`http://www.omdbapi.com/?apikey=c36c5749&type=movie&s=${query}&page=1`).then(res => res.json());
+}
+
+export function getMovie(query){
+    return fetch(`http://www.omdbapi.com/?apikey=c36c5749&i=${query}`).then(res => res.json());
+}
