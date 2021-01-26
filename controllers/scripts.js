@@ -1,4 +1,4 @@
-const Script = require('../models/Script');
+const Script = require('../models/script');
 const Rating = require('../models/ratings');
 const User = require('../models/user');
 const { v4: uuidv4 } = require('uuid');

@@ -1,5 +1,5 @@
 const Rating = require('../models/ratings');
-const Script = require('../models/Script');
+const Script = require('../models/script');
 
 module.exports = {
     create,
