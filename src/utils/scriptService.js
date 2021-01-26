@@ -78,9 +78,9 @@ export function getFeatured(){
 
 //OMDB API
 export function getIdeas(query){
-    return fetch(`http://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDBKEY}&type=movie&s=${query}&page=1`).then(res => res.json());
+    return fetch(`https://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDBKEY}&type=movie&s=${query}&page=1`).then(res => res.json());
 }
 
 export function getMovie(query){
-    return fetch(`http://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDBKEY}&i=${query}`).then(res => res.json());
+    return fetch(`https://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDBKEY}&i=${query}`).then(res => res.json());
 }

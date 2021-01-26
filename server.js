@@ -5,7 +5,6 @@ const logger = require('morgan');
 const favicon = require('serve-favicon');
 
 require('./config/database');
-console.log('at build');
 // Require controllers here
 
 const app = express();
