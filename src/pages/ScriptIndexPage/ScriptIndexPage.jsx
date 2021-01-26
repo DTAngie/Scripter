@@ -4,18 +4,24 @@ import { Grid, Header } from 'semantic-ui-react';
 import BrowseScripts from '../../components/BrowseScripts/BrowseScripts';
 import ScriptList from '../../components/ScriptList/ScriptList';
 import LeftNavigation from '../../components/LeftNavigation/LeftNavigation';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import * as scriptsAPI from '../../utils/scriptService';
 
 export default function ScriptIndexPage({user}){
     const [scripts, setScripts] = useState([]);
     const location = useLocation();
     const [searchHeader, setSearchHeader] = useState();
-    
+    const [error, setError] = useState('');
     
     useEffect(()=> {
         async function getScripts(){
             const data = await scriptsAPI.populateScripts(location.search);
-            setScripts([...data.scripts]);
+            if (data['404']){
+                setError('Something went wrong. Please try again.');
+            } else {
+                setScripts([...data.scripts]);
+                setError('');
+            }
         } 
 
         function getHeading(){
@@ -49,6 +55,7 @@ export default function ScriptIndexPage({user}){
                 </Grid.Column>
                 <Grid.Column width={8}>
                     <Header style={{marginBottom: '40px'}}>{searchHeader}</Header>
+                    <ErrorMessage error={error} />
                     <ScriptList scripts={scripts}/>
                 </Grid.Column>
                 <Grid.Column width={4}>

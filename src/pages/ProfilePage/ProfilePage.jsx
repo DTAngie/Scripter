@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { Grid, Header } from 'semantic-ui-react';
 import LeftNavigation from '../../components/LeftNavigation/LeftNavigation';
 import ScriptList from '../../components/ScriptList/ScriptList';
 import BrowseScripts from '../../components/BrowseScripts/BrowseScripts';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import * as scriptsAPI from '../../utils/scriptService';
 import { useLocation } from 'react-router-dom';
 
@@ -11,9 +12,11 @@ export default function ProfilePage({user}){
     const [scripts, setScripts] = useState([]);
     const [isOwner, setOwner] = useState(null); 
     const [author, setAuthor] = useState('');
+    const [error, setError] = useState('');
     const location = useLocation();
     const params = useParams();
     const authorID = params.id ? params.id : user._id;
+    const history = useHistory();
     
     useEffect(()=> {
         function checkOwner(){
@@ -31,18 +34,28 @@ export default function ProfilePage({user}){
             if(isOwner !== null && isOwner) {
                 try {
                     const data = await scriptsAPI.getOwnScripts();
-                    setScripts([...data.scripts]);
-                    setAuthor(user.username);
+                    if (data['404']){
+                        setError('Something went wrong. Please try again.');
+                    } else {
+                        setScripts([...data.scripts]);
+                        setAuthor(user.username);
+                        setError('');
+                    }
                 } catch (err) {
-                    console.log(err);
+                   history.push('/');
                 }
             } else if (!isOwner && isOwner !== null) {
                 try {
                     const data = await scriptsAPI.getUserScripts(authorID);
-                    setScripts([...data.scripts]);
-                    setAuthor(data.author);
+                    if (data['404']){
+                        setError('Something went wrong. Please try again.');
+                    } else {
+                        setScripts([...data.scripts]);
+                        setAuthor(data.author);
+                        setError('');
+                    }
                 } catch (err) {
-                    console.log(err);
+                    history.push('/dashboard');
                 }
             }
         }
@@ -57,6 +70,7 @@ export default function ProfilePage({user}){
                 </Grid.Column>
                 <Grid.Column width={8}>
                     <Header style={{marginBottom: '40px', textAlign: 'left'}}>{author ? author : ''}'s Scripts</Header>
+                    <ErrorMessage error={error} />
                     {scripts.length > 0 ?
                     <ScriptList scripts={scripts}/>
                     :

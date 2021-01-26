@@ -39,7 +39,7 @@ async function create(req, res) {
         });
         res.status(201).json({scriptID: script._id});
     } catch (err){
-        console.log(err);
+        res.status(404).json({404:'Bad Request'});
     }
 }
 
@@ -48,7 +48,7 @@ async function index(req, res) {
         const scripts = await Script.find({author: req.user});
         res.status(200).json({scripts});
     } catch (err) {
-        console.log(err);
+        res.status(404).json({404:'Bad Request'});
     }
 }
 
@@ -59,7 +59,7 @@ async function allScripts(req, res) {
         const username = author ? author.username : null;
         res.status(200).json({scripts: scripts, author: username});
     } catch(err) {
-        console.log(err);
+        res.status(404).json({404:'Bad Request'});
     }
 }
 
@@ -96,7 +96,6 @@ async function show(req, res) {
             }
             return 0;
         } catch(err) {
-            console.log(err);
             return null;
         }
     }
@@ -111,7 +110,7 @@ async function edit(req, res) {
             res.status(200).json({script});
         }
     } catch (err) {
-        console.log(err);
+        res.status(404).json({404:'Bad Request'});
     }
 }
 
@@ -139,7 +138,7 @@ async function update(req, res) {
         });
         res.status(200).json({scriptID: req.params.id});
     } catch (err){
-        console.log(err);
+        res.status(404).json({404:'Bad Request'});
     }
 }
 

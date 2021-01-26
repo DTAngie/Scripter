@@ -84,13 +84,13 @@ export default function ScriptDetailPage({user}){
         
         //This gets user's specific rating for said script
         async function getRatings() {
-            setError('');
             if(Object.keys(script).length > 0) {
                 const data = await ratingAPI.getOne(script._id, user._id);
                 if (data['404']){
                     setError('Something went wrong. Please try again.');
                 } else {
                     setRating(data.rating);
+                    setError('');
                 }
                 
             }
@@ -109,7 +109,6 @@ export default function ScriptDetailPage({user}){
                 setIsLoading(true);
             }
         }
-
         getBudget();
         getRatings();
         checkOwner();
@@ -129,20 +128,20 @@ export default function ScriptDetailPage({user}){
                     />
                 </Grid.Column>
                 <Grid.Column width={8}>
-                <ErrorMessage error={error} />
-                {Object.keys(script).length > 0 ?
-                    <ScriptDetail
-                        isOwner={isOwner}
-                        script={script}
-                        userRating={userRating ? userRating.score : null}
-                        displayBudget={displayBudget}
-                        handleDeleteScript={handleDeleteScript}
-                        handleRate={handleRating}
-                    />
-                    :
-                    ''
-                }
-                <Loader active={isLoading}>Loading...</Loader>
+                    <ErrorMessage error={error} />
+                    {Object.keys(script).length > 0 ?
+                        <ScriptDetail
+                            isOwner={isOwner}
+                            script={script}
+                            userRating={userRating ? userRating.score : null}
+                            displayBudget={displayBudget}
+                            handleDeleteScript={handleDeleteScript}
+                            handleRate={handleRating}
+                        />
+                        :
+                        ''
+                    }
+                    <Loader active={isLoading}>Loading...</Loader>
                 </Grid.Column>
                 <Grid.Column width={4}>
                     <BrowseScripts />

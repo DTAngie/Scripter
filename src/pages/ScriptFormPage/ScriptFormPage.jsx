@@ -3,6 +3,7 @@ import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { Grid } from 'semantic-ui-react';
 import LeftNavigation from '../../components/LeftNavigation/LeftNavigation';
 import ScriptForm from '../../components/ScriptForm/ScriptForm';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import * as ScriptAPI from '../../utils/scriptService.js';
 
 export default function ScriptFormPage(){
@@ -10,19 +11,29 @@ export default function ScriptFormPage(){
     const history = useHistory();
     const location = useLocation();
     const params = useParams();
+    const [error, setError] = useState('');
 
     
 
     async function handleAddScript(data, id) {
+        setError('');
         if (id) {
             const editedScript = await ScriptAPI.update(data, id);
-            history.push(`/scripts/${editedScript.scriptID}`)
+            if (editedScript['404']){
+                setError('Something went wrong. Please try again.');
+            } else {
+                history.push(`/scripts/${editedScript.scriptID}`);
+            }
         } else  {
             try {
                 const newScript = await ScriptAPI.create(data);
-                history.push(`/scripts/${newScript.scriptID}`);
+                if (newScript['404']){
+                    setError('Something went wrong. Please try again.');
+                } else {
+                    history.push(`/scripts/${newScript.scriptID}`);
+                }
             } catch (err) {
-                console.log(err);
+                setError('Something went wrong. Please try again.');
             }
         }
     }
@@ -42,7 +53,7 @@ export default function ScriptFormPage(){
                         setScript({...data.script});
                     }
                 } catch (err){
-                    console.log(err)
+                    history.push('/dashboard');
                 }
             } else {
                 setScript({});
@@ -59,6 +70,7 @@ export default function ScriptFormPage(){
                     <LeftNavigation ownerIndex={null}/>
                 </Grid.Column>
                 <Grid.Column width={8}>
+                    <ErrorMessage error={error} />
                     <ScriptForm script={script} handleAddScript={handleAddScript}/>
                 </Grid.Column>
                 <Grid.Column width={4}>
