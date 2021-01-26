@@ -10,7 +10,9 @@ Scripter allows to writers to share their logline and synopsis and get feedback 
 Dashboard
 ![Screenshot 1](./src/assets/images/ScripterDashboard.png "Scripter Dashboard")
 Script Detail Page
-![Screenshot 2](./src/assets/images/ScripterDetailPage.png "Screenshot Detail")
+![Screenshot 2](./src/assets/images/ScripterDetailPage.png "Script Detail")
+Idea Generator
+![Screenshot 2](./src/assets/images/IdeaGeneratorPage.png "Idea Generator")
 <br><br>
 
 ## Technologies Used:

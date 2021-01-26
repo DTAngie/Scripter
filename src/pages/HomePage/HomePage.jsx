@@ -37,6 +37,7 @@ export default function HomePage() {
                             return (
                                 <Grid.Column key={index}>
                                     <Card style={{margin: '0 auto'}}>
+                                        <Image src={script.posterURL} wrapped ui={false}/>
                                         <Card.Content>
                                             <Card.Header>{script.title}</Card.Header>
                                             <Card.Description>{script.logline}</Card.Description>

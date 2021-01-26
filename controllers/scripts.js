@@ -65,7 +65,7 @@ async function allScripts(req, res) {
 
 async function getFeatured(req, res){
     try {
-        const scripts = await Script.find({ averageRating: { $ne: null } }).sort({averageRating: 'desc'}).limit(3).select('title logline').exec();
+        const scripts = await Script.find({ averageRating: { $ne: null } }).sort({averageRating: 'desc'}).limit(3).select('title logline posterURL').exec();
         res.status(200).json({scripts});
     } catch (err) {
         res.status(404).json({404:'Bad Request'});
