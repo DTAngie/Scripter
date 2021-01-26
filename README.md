@@ -23,8 +23,8 @@ Idea Generator
 
 
 ## Try it out:
-Links to come
 [Trello board](https://trello.com/b/HHUExaPJ/scripter)
+<br>
 [Heroku](https://scripterapp.herokuapp.com/)
 
 
