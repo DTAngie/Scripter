@@ -40,7 +40,6 @@ export default function SignUpPage(props){
       props.handleSignUpOrLogin();
       history.push('/dashboard');
     } catch (err) {
-      console.log(err.message);
       setError(err.message);
     }
   }

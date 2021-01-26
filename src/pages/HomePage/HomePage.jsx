@@ -11,7 +11,11 @@ export default function HomePage() {
     useEffect(()=> {
         async function getScripts(){
             const data = await scriptsAPI.getFeatured();
-            setFeaturedScripts([...data.scripts]);
+            if (data['404']){
+                setFeaturedScripts(null);
+            } else {
+                setFeaturedScripts([...data.scripts]);
+            }
         }
         getScripts();
     }, [])

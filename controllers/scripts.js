@@ -68,7 +68,7 @@ async function getFeatured(req, res){
         const scripts = await Script.find({ averageRating: { $ne: null } }).sort({averageRating: 'desc'}).limit(3).select('title logline').exec();
         res.status(200).json({scripts});
     } catch (err) {
-        console.log(err);
+        res.status(404).json({404:'Bad Request'});
     }
 }
 
@@ -80,7 +80,7 @@ async function show(req, res) {
         script.save();
         res.status(200).json({script});
     } catch (err) {
-        console.log(err);
+        res.status(404).json({404:'Bad Request'});
     }
 
 
@@ -146,13 +146,13 @@ async function deleteOne(req, res){
     try {
         const script = await Script.findOne({_id: req.params.id});
         if (script.author.toString() !== req.user._id.toString()) {
-            res.status(404).json('Bad Request');
+            res.status(404).json({404:'Bad Request'});
         } else {
             script.deleteOne();
             res.status(200).json('Successful Deletion');
         }
     } catch (err) {
-        console.log(err);
+        res.status(404).json({404:'Bad Request'});
     }
 }
 

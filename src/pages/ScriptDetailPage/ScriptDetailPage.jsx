@@ -31,11 +31,16 @@ export default function ScriptDetailPage({user}){
     const history = useHistory();
     
     async function handleDeleteScript(scriptID) {
+        setError('');
         try {
-            await scriptAPI.deleteOne(scriptID);
-            history.push('/dashboard');
+            const deletedScript = await scriptAPI.deleteOne(scriptID);
+            if (deletedScript['404']){
+                setError('Something went wrong.');
+            } else {
+                history.push('/dashboard');
+            }
         } catch(err) {
-            console.log(err);
+            setError('Something went wrong.');
         }
     }
 
@@ -66,12 +71,17 @@ export default function ScriptDetailPage({user}){
  
     useEffect(() => {
         async function getScript(){
+            setError('');
             const scriptID = params.id;
             try {
                 const data = await scriptAPI.getOne(scriptID);
-                setScript(data.script);
+                if (data['404']){
+                    setError('Something went wrong. Please try again.');
+                } else {
+                    setScript(data.script);
+                }
             } catch(err) {
-                console.log(err);
+                setError('Something went wrong. Please try again.');
             }
         }
         getScript();

@@ -60,7 +60,7 @@ export default function ProfilePage({user}){
             }
         }
         getScripts();
-    }, [isOwner, authorID, user.username]);
+    }, [isOwner, authorID, user.username, history]);
 
     return (
         <>
