@@ -105,11 +105,13 @@ async function edit(req, res) {
     try {
         const script = await Script.findOne({_id: req.params.id}).populate('author', 'username').exec();
         if (script.author._id.toString() !== req.user._id.toString()){
+            console.log('users not a match');
             res.status(404).json({404:'Bad Request'});
         } else {
             res.status(200).json({script});
         }
     } catch (err) {
+        console.log(err);
         res.status(404).json({404:'Bad Request'});
     }
 }
